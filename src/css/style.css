@@ -1,0 +1,349 @@
+/* Reset e Estilos Globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #fff;
+    background-color: #181b2e;
+    padding: 40px 20px; /* Adiciona espaçamento ao redor do body */
+}
+
+/* Header */
+header {
+    background-color: #181b2e;
+    color: white;
+    padding: 40px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    transition: padding 0.5s ease, background-color 0.5s ease;
+}
+
+header .logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s ease;
+}
+
+header .logo {
+    width: 200px;
+    transition: width 0.5s ease;
+}
+
+header .logo-text {
+    display: none;
+    font-size: 28px;
+    font-weight: bold;
+    margin-left: 15px;
+    color: white;
+}
+
+nav {
+    position: absolute;
+    right: 30px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: #fc0003;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    margin-bottom: 40px; /* Espaço abaixo da seção */
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 0;
+}
+
+.hero-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    background-color: #fc0003;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    display: inline-block;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #d40002;
+    transform: scale(1.1);
+}
+
+/* Animação de fade-in */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Seção Sobre Nós */
+.about {
+    padding: 60px 40px; /* Mais espaçamento ao redor da seção */
+    background-color: #2d334a;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 40px; /* Espaçamento entre as seções */
+}
+
+.about h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #fc0003;
+    animation: fadeInUp 1s ease-out;
+}
+
+.about p {
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    animation: fadeInUp 1.5s ease-out;
+}
+
+/* Seção de Produtos */
+.produtos {
+    padding: 40px; /* Aumentado o espaçamento interno */
+    background-color: #2d334a;
+    border-radius: 10px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.produtos h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #fc0003;
+}
+
+.produto {
+    background-color: #343c5c;
+    padding: 20px;
+    margin: 30px; /* Espaçamento entre produtos */
+    border-radius: 10px;
+    display: inline-block;
+    width: 200px;
+}
+
+.produto img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.produto h3 {
+    margin: 15px 0;
+    font-size: 18px;
+}
+
+.produto p {
+    color: #fc0003;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.produto button {
+    background-color: #fc0003;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.produto button:hover {
+    background-color: #d40002;
+}
+
+/* Seção de Destaques */
+.destaques {
+    padding: 40px; /* Aumentado o espaçamento interno */
+    background-color: #2d334a;
+    border-radius: 10px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.destaques h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #fc0003;
+}
+
+.destaque-item {
+    display: inline-block;
+    width: 300px;
+    background-color: #343c5c;
+    padding: 20px;
+    margin: 30px; /* Espaçamento entre destaques */
+    text-align: center;
+    border-radius: 10px;
+}
+
+.destaque-item img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.destaque-item p {
+    margin-top: 10px;
+}
+
+/* Seção de Depoimentos */
+.depoimentos {
+    padding: 40px; /* Aumentado o espaçamento interno */
+    background-color: #2d334a;
+    border-radius: 10px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.depoimentos h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #fc0003;
+}
+
+.depoimento {
+    background-color: #343c5c;
+    padding: 20px;
+    margin: 30px; /* Espaçamento entre depoimentos */
+    border-radius: 10px;
+}
+
+/* Seção de Parceiros */
+.parceiros {
+    padding: 40px; /* Aumentado o espaçamento interno */
+    background-color: #2d334a;
+    border-radius: 10px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.parceiros h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #fc0003;
+}
+
+.parceiro {
+    display: inline-block;
+    margin: 30px; /* Espaçamento entre parceiros */
+}
+
+.parceiro img {
+    width: 150px;
+    border-radius: 8px;
+}
+
+/* Rodapé */
+footer {
+    background-color: #232741;
+    color: white;
+    text-align: center;
+    padding: 40px 0; /* Aumentado o espaçamento interno */
+    margin-top: 40px;
+}
+
+/* Estilo para a logo e header após o scroll */
+header.scrolled {
+    background-color: #181b2e;
+    padding: 15px;
+    justify-content: flex-start;
+}
+
+header.scrolled .logo-container {
+    justify-content: flex-start;
+}
+
+header.scrolled .logo {
+    width: 100px;
+}
+
+header.scrolled .logo-text {
+    display: inline-block;
+    font-size: 22px;
+    margin-left: 10px;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
