@@ -7,28 +7,27 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===== FUNCIONALIDADE: MENU MOBILE TOGGLE =====
     // =============================================
     const mobileMenuButton = document.querySelector('.mobile-menu-button');
-    const mobileNavLinks = document.getElementById('mobile-nav-links'); // Usar getElementById
-    const bodyOverlay = document.getElementById('body-overlay'); // Selecionar o overlay
+    const mobileNavLinks = document.getElementById('mobile-nav-links');
+    const bodyOverlay = document.getElementById('body-overlay');
 
     function openMobileMenu() {
-        if (mobileNavLinks && bodyOverlay) {
+        if (mobileNavLinks && bodyOverlay && mobileMenuButton) { // Adicionado mobileMenuButton aqui
             mobileNavLinks.classList.add('active');
-            mobileMenuButton.classList.add('open'); // Para trocar ícone se necessário
+            mobileMenuButton.classList.add('open');
             mobileMenuButton.setAttribute('aria-expanded', 'true');
             bodyOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Impede scroll do body
+            document.body.style.overflow = 'hidden';
         }
     }
 
     function closeMobileMenu() {
-        if (mobileNavLinks && bodyOverlay) {
+        if (mobileNavLinks && bodyOverlay && mobileMenuButton) { // Adicionado mobileMenuButton aqui
             mobileNavLinks.classList.remove('active');
             mobileMenuButton.classList.remove('open');
             mobileMenuButton.setAttribute('aria-expanded', 'false');
-            // Só remove o overlay se o painel de filtros também não estiver aberto
             if (!document.getElementById('filters-sidebar-panel')?.classList.contains('open')) {
                 bodyOverlay.classList.remove('active');
-                document.body.style.overflow = ''; // Restaura scroll do body
+                document.body.style.overflow = '';
             }
         }
     }
@@ -59,179 +58,249 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===== FUNCIONALIDADE: VALIDAÇÃO FORM CONTATO ===
     // =============================================
     const contactForm = document.getElementById('contact-form');
-    const formStatus = document.getElementById('form-status');
-    const submitButtonContact = contactForm ? contactForm.querySelector('button[type="submit"]') : null;
+    if (contactForm) { // Verifica o formulário principal primeiro
+        const formStatus = document.getElementById('form-status');
+        const submitButtonContact = contactForm.querySelector('button[type="submit"]');
 
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
-
-    function clearInputErrors(form) {
-        if (!form) return;
-        form.querySelectorAll('.input-error').forEach(input => {
-            input.classList.remove('input-error');
-        });
-        form.querySelectorAll('.error-message, .calc-error-message').forEach(msg => {
-            msg.remove();
-        });
-    }
-
-    function addInputError(inputElement, message) {
-        if (!inputElement) return;
-        inputElement.classList.add('input-error');
-        const formGroup = inputElement.closest('.form-group');
-        if (formGroup) {
-            const existingErrorMsg = formGroup.querySelector('.error-message, .calc-error-message');
-            if (existingErrorMsg) existingErrorMsg.remove();
-            const errorMsgElement = document.createElement('span');
-            // Adiciona classe específica dependendo do formulário para evitar conflito de estilo se houver
-            errorMsgElement.className = inputElement.form.id === 'btu-calculator-form' ? 'calc-error-message' : 'error-message';
-            errorMsgElement.textContent = message;
-            inputElement.parentNode.insertBefore(errorMsgElement, inputElement.nextSibling);
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
         }
-    }
 
-    if (contactForm && formStatus && submitButtonContact) {
-        contactForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            formStatus.textContent = '';
-            formStatus.className = 'form-status';
-            formStatus.style.display = 'none';
-            clearInputErrors(contactForm);
-            submitButtonContact.disabled = true;
+        function clearInputErrors(form) {
+            if (!form) return;
+            form.querySelectorAll('.input-error').forEach(input => {
+                input.classList.remove('input-error');
+            });
+            form.querySelectorAll('.error-message, .calc-error-message').forEach(msg => {
+                msg.remove();
+            });
+        }
 
-            const nameInput = document.getElementById('name');
-            const emailInput = document.getElementById('email');
-            const subjectInput = document.getElementById('subject');
-            const messageInput = document.getElementById('message');
-            const name = nameInput.value.trim();
-            const email = emailInput.value.trim();
-            const subject = subjectInput.value.trim();
-            const message = messageInput.value.trim();
-            let isValid = true;
-            let errors = [];
-
-            if (name === '') { isValid = false; errors.push('Nome'); addInputError(nameInput, 'Nome é obrigatório.'); }
-            if (email === '') { isValid = false; errors.push('E-mail'); addInputError(emailInput, 'E-mail é obrigatório.'); }
-            else if (!isValidEmail(email)) { isValid = false; errors.push('E-mail inválido'); addInputError(emailInput, 'Formato de e-mail inválido.'); }
-            if (subject === '') { isValid = false; errors.push('Assunto'); addInputError(subjectInput, 'Assunto é obrigatório.'); }
-            if (message === '') { isValid = false; errors.push('Mensagem'); addInputError(messageInput, 'Mensagem é obrigatória.'); }
-
-            if (isValid) {
-                formStatus.textContent = 'Enviando mensagem...';
-                formStatus.className = 'form-status info';
-                formStatus.style.display = 'block';
-                const formData = new FormData(contactForm);
-                const formAction = contactForm.getAttribute('action');
-
-                fetch(formAction, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } })
-                .then(response => {
-                    if (response.ok) {
-                        formStatus.textContent = 'Mensagem enviada com sucesso! Agradecemos o contato e retornaremos em breve.';
-                        formStatus.className = 'form-status success';
-                        contactForm.reset();
-                    } else {
-                         return response.json().then(data => {
-                            let errorMsg = 'Ocorreu um erro do servidor ao tentar enviar a mensagem.';
-                            if (data && data.errors) { errorMsg = data.errors.map(e => e.message).join(', '); }
-                             throw new Error(errorMsg);
-                         });
-                    }
-                })
-                .catch(error => {
-                    console.error('Erro ao enviar formulário:', error);
-                    formStatus.textContent = `Erro ao enviar: ${error.message || 'Verifique sua conexão.'}`;
-                    formStatus.className = 'form-status error';
-                })
-                .finally(() => {
-                     formStatus.style.display = 'block';
-                     submitButtonContact.disabled = false;
-                 });
-            } else {
-                formStatus.innerHTML = 'Por favor, corrija os campos indicados.';
-                formStatus.className = 'form-status error';
-                formStatus.style.display = 'block';
-                submitButtonContact.disabled = false;
-                const firstErrorInput = contactForm.querySelector('.input-error');
-                if (firstErrorInput) firstErrorInput.focus();
+        function addInputError(inputElement, message) {
+            if (!inputElement) return;
+            inputElement.classList.add('input-error');
+            const formGroup = inputElement.closest('.form-group');
+            if (formGroup) {
+                const existingErrorMsg = formGroup.querySelector('.error-message, .calc-error-message');
+                if (existingErrorMsg) existingErrorMsg.remove();
+                const errorMsgElement = document.createElement('span');
+                errorMsgElement.className = inputElement.form.id === 'btu-calculator-form' ? 'calc-error-message' : 'error-message';
+                errorMsgElement.textContent = message;
+                inputElement.parentNode.insertBefore(errorMsgElement, inputElement.nextSibling);
             }
-        });
+        }
+
+        if (formStatus && submitButtonContact) { // Verifica elementos internos
+            contactForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                formStatus.textContent = '';
+                formStatus.className = 'form-status';
+                formStatus.style.display = 'none';
+                clearInputErrors(contactForm);
+                submitButtonContact.disabled = true;
+
+                const nameInput = document.getElementById('name');
+                const emailInput = document.getElementById('email');
+                const subjectInput = document.getElementById('subject');
+                const messageInput = document.getElementById('message');
+                const name = nameInput ? nameInput.value.trim() : '';
+                const email = emailInput ? emailInput.value.trim() : '';
+                const subject = subjectInput ? subjectInput.value.trim() : '';
+                const message = messageInput ? messageInput.value.trim() : '';
+                let isValid = true;
+
+                if (!nameInput || name === '') { isValid = false; if(nameInput) addInputError(nameInput, 'Nome é obrigatório.'); }
+                if (!emailInput || email === '') { isValid = false; if(emailInput) addInputError(emailInput, 'E-mail é obrigatório.'); }
+                else if (!isValidEmail(email)) { isValid = false; if(emailInput) addInputError(emailInput, 'Formato de e-mail inválido.'); }
+                if (!subjectInput || subject === '') { isValid = false; if(subjectInput) addInputError(subjectInput, 'Assunto é obrigatório.'); }
+                if (!messageInput || message === '') { isValid = false; if(messageInput) addInputError(messageInput, 'Mensagem é obrigatória.'); }
+
+                if (isValid) {
+                    formStatus.textContent = 'Enviando mensagem...';
+                    formStatus.className = 'form-status info';
+                    formStatus.style.display = 'block';
+                    const formData = new FormData(contactForm);
+                    const formAction = contactForm.getAttribute('action');
+
+                    fetch(formAction, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } })
+                    .then(response => {
+                        if (response.ok) {
+                            formStatus.textContent = 'Mensagem enviada com sucesso! Agradecemos o contato e retornaremos em breve.';
+                            formStatus.className = 'form-status success';
+                            contactForm.reset();
+                        } else {
+                             return response.json().then(data => {
+                                let errorMsg = 'Ocorreu um erro do servidor ao tentar enviar a mensagem.';
+                                if (data && data.errors) { errorMsg = data.errors.map(e => e.message).join(', '); }
+                                 throw new Error(errorMsg);
+                             });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao enviar formulário:', error);
+                        formStatus.textContent = `Erro ao enviar: ${error.message || 'Verifique sua conexão.'}`;
+                        formStatus.className = 'form-status error';
+                    })
+                    .finally(() => {
+                         formStatus.style.display = 'block';
+                         submitButtonContact.disabled = false;
+                     });
+                } else {
+                    formStatus.innerHTML = 'Por favor, corrija os campos indicados.';
+                    formStatus.className = 'form-status error';
+                    formStatus.style.display = 'block';
+                    submitButtonContact.disabled = false;
+                    const firstErrorInput = contactForm.querySelector('.input-error');
+                    if (firstErrorInput) firstErrorInput.focus();
+                }
+            });
+        }
     }
 
     // =============================================
     // ===== FUNCIONALIDADE: FILTRO DE PRODUTOS =====
     // =============================================
-    const filterCheckboxes = document.querySelectorAll('#filter-form input[type="checkbox"]'); // Mais específico
-    const productCards = document.querySelectorAll('.product-list-container .product-card');
-    const noResultsMessage = document.getElementById('no-results-message');
-    const productGrid = document.querySelector('.product-list-container .product-grid');
+    const filterForm = document.getElementById('filter-form');
+    if (filterForm) { // Verifica se o formulário de filtro existe
+        const filterCheckboxes = filterForm.querySelectorAll('input[type="checkbox"]');
+        const productCards = document.querySelectorAll('.product-list-container .product-card');
+        const noResultsMessage = document.getElementById('no-results-message');
+        const productGrid = document.querySelector('.product-list-container .product-grid');
 
-    function getSelectedFilterValues(filterName) {
-        const checkedBoxes = document.querySelectorAll(`#filter-form input[name="${filterName}"]:checked`);
-        return Array.from(checkedBoxes).map(cb => cb.value);
-    }
+        function getSelectedFilterValues(filterName) {
+            const checkedBoxes = filterForm.querySelectorAll(`input[name="${filterName}"]:checked`);
+            return Array.from(checkedBoxes).map(cb => cb.value);
+        }
 
-    function isAnyFilterSelected(filters) {
-        for (const category in filters) { if (filters[category].length > 0) return true; }
-        return false;
-    }
+        function isAnyFilterSelected(filters) {
+            for (const category in filters) { if (filters[category].length > 0) return true; }
+            return false;
+        }
 
-    function applyFilters() {
-        if (!productCards.length && !productGrid) return; // Se não há produtos na página
+        function applyFilters() {
+            if (!productCards.length && !productGrid) return;
 
-        const selectedFilters = {
-            tipo: getSelectedFilterValues('tipo'),
-            btu: getSelectedFilterValues('btu'),
-            marca: getSelectedFilterValues('marca'),
-            func: getSelectedFilterValues('func')
-        };
-        let visibleProductsCount = 0;
-
-        productCards.forEach(card => {
-            const productData = {
-                tipo: card.dataset.tipo || '', btu: card.dataset.btu || '',
-                marca: card.dataset.marca || '',
-                funcionalidades: (card.dataset.funcionalidades || '').split(' ').filter(f => f)
+            const selectedFilters = {
+                tipo: getSelectedFilterValues('tipo'),
+                btu: getSelectedFilterValues('btu'),
+                marca: getSelectedFilterValues('marca'),
+                func: getSelectedFilterValues('func')
             };
-            let shouldShow = true;
-            for (const key in selectedFilters) {
-                if (selectedFilters[key].length > 0 && shouldShow) {
-                    if (key === 'func') {
-                        if (!selectedFilters[key].some(val => productData.funcionalidades.includes(val))) {
-                            shouldShow = false;
-                        }
-                    } else {
-                        if (!selectedFilters[key].includes(productData[key])) {
-                            shouldShow = false;
+            let visibleProductsCount = 0;
+
+            productCards.forEach(card => {
+                const productData = {
+                    tipo: card.dataset.tipo || '', btu: card.dataset.btu || '',
+                    marca: card.dataset.marca || '',
+                    funcionalidades: (card.dataset.funcionalidades || '').split(' ').filter(f => f)
+                };
+                let shouldShow = true;
+                for (const key in selectedFilters) {
+                    if (selectedFilters[key].length > 0 && shouldShow) {
+                        if (key === 'func') {
+                            if (!selectedFilters[key].some(val => productData.funcionalidades.includes(val))) {
+                                shouldShow = false;
+                            }
+                        } else {
+                            if (!selectedFilters[key].includes(productData[key])) {
+                                shouldShow = false;
+                            }
                         }
                     }
                 }
-            }
-            card.classList.toggle('hidden', !shouldShow);
-            if (shouldShow) visibleProductsCount++;
-        });
+                card.classList.toggle('hidden', !shouldShow);
+                if (shouldShow) visibleProductsCount++;
+            });
 
-        if (noResultsMessage && productGrid) {
-            const showNoResults = visibleProductsCount === 0 && isAnyFilterSelected(selectedFilters);
-            noResultsMessage.style.display = showNoResults ? 'flex' : 'none';
-            productGrid.style.display = showNoResults ? 'none' : 'grid';
+            if (noResultsMessage && productGrid) {
+                const showNoResults = visibleProductsCount === 0 && isAnyFilterSelected(selectedFilters);
+                noResultsMessage.style.display = showNoResults ? 'flex' : 'none';
+                productGrid.style.display = showNoResults ? 'none' : 'grid';
+            }
+        }
+
+        if (filterCheckboxes.length > 0) {
+            filterCheckboxes.forEach(checkbox => checkbox.addEventListener('change', applyFilters));
+            if (productCards.length > 0 || productGrid) applyFilters();
+        }
+
+        const clearFiltersNoResultsBtn = document.getElementById('clear-filters-btn');
+        if (clearFiltersNoResultsBtn) {
+            clearFiltersNoResultsBtn.addEventListener('click', () => {
+                filterCheckboxes.forEach(checkbox => { checkbox.checked = false; });
+                applyFilters();
+            });
         }
     }
 
-    if (filterCheckboxes.length > 0) {
-        filterCheckboxes.forEach(checkbox => checkbox.addEventListener('change', applyFilters));
-        if (productCards.length > 0 || productGrid) applyFilters(); // Aplica no carregamento
+
+    // =======================================================
+    // ===== FILTROS DESKTOP - DROPDOWNS  (Acordeão)     =====
+    // =======================================================
+    const DESKTOP_BREAKPOINT_FILTERS = 769;
+    console.error("TESTE ANTES DA DEFINIÇÃO DE filterGroupToggles");
+    const filterGroupToggles = document.querySelectorAll('.produtos-page .filter-group-toggle');
+    console.error("TESTE DEPOIS DA DEFINIÇÃO DE filterGroupToggles:", filterGroupToggles);
+    let resizeTimerFilters;
+
+    // Função para manipular o clique no toggle do filtro (acordeão)
+    function handleFilterToggleClick(event) {
+        const button = event.currentTarget; // O botão que foi clicado
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+        button.setAttribute('aria-expanded', String(!isExpanded));
+        // O CSS deve cuidar de mostrar/esconder o conteúdo e girar o ícone
     }
 
-    // --- Botão Limpar Filtros (no #no-results-message) ---
-    const clearFiltersNoResultsBtn = document.getElementById('clear-filters-btn');
-    if (clearFiltersNoResultsBtn) {
-        clearFiltersNoResultsBtn.addEventListener('click', () => {
-            filterCheckboxes.forEach(checkbox => { checkbox.checked = false; });
-            applyFilters();
+    function setupFilterDropdowns() {
+        if (!filterGroupToggles.length) return; // Sai se não encontrar os toggles
+
+        const isDesktop = window.innerWidth >= DESKTOP_BREAKPOINT_FILTERS;
+
+        filterGroupToggles.forEach(button => {
+            const contentId = button.getAttribute('aria-controls');
+            const contentElement = document.getElementById(contentId);
+
+            if (!contentElement) return;
+
+            if (isDesktop) {
+                // Comportamento Desktop: Adiciona listener para acordeão
+                // Remove listener antigo para evitar duplicação se a função for chamada múltiplas vezes (resize)
+                button.removeEventListener('click', handleFilterToggleClick);
+                button.addEventListener('click', handleFilterToggleClick);
+
+                // Garante que aria-expanded esteja 'false' inicialmente no desktop,
+                // a menos que seja o primeiro que você quer aberto.
+                // O CSS vai esconder o conteúdo baseado nisso.
+                if (!button.hasAttribute('data-initially-expanded')) { // Evita fechar um que foi explicitamente aberto
+                    button.setAttribute('aria-expanded', 'false');
+                }
+            } else {
+                // Comportamento Mobile: Remove listener de acordeão e garante que tudo esteja expandido
+                button.removeEventListener('click', handleFilterToggleClick);
+                button.setAttribute('aria-expanded', 'true');
+                // O CSS para mobile deve garantir que .filter-group-content seja display: block;
+            }
+        });
+
+        // Se quiser que um filtro específico comece aberto no desktop
+        if (isDesktop) {
+        const firstToggle = document.querySelector('.produtos-page .filter-group:first-of-type .filter-group-toggle');
+        if (firstToggle && firstToggle.getAttribute('aria-expanded') !== 'true') { // Evitar setar se já estiver true por data-initially-expanded
+            firstToggle.setAttribute('aria-expanded', 'true');
+            }
+        }
+    }
+
+        if (filterGroupToggles.length > 0) { // << USO DE filterGroupToggles
+        setupFilterDropdowns();
+
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimerFilters);
+            resizeTimerFilters = setTimeout(setupFilterDropdowns, 250);
         });
     }
+
 
     // =============================================
     // ===== FUNCIONALIDADE: CALCULADORA DE BTUS =====
@@ -240,30 +309,40 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btuCalculatorForm) {
         const btuResultWrapper = document.getElementById('btu-calculator-result-wrapper');
         const btuResultDisplay = document.getElementById('btu-result-display');
-        const btuRangeSuggestionP = document.getElementById('btu-range-suggestion');
+        const btuRangeSuggestionP = document.getElementById('btu-range-suggestion'); // Verifique se este ID existe no HTML
         const resetButtonCalc = document.getElementById('reset-btu-btn');
+
+        // Precisa da função addInputError e clearInputErrors, já definidas na seção de contato
+        // Se esta seção pode rodar sem a de contato, precisaria duplicá-las ou movê-las para um escopo global.
+        // Assumindo que estão disponíveis.
 
         btuCalculatorForm.addEventListener('submit', function(event) {
             event.preventDefault();
-            clearInputErrors(btuCalculatorForm);
+            if (typeof clearInputErrors === 'function') clearInputErrors(btuCalculatorForm); // Verifica se a função existe
             let isValidCalc = true;
             const areaInput = document.getElementById('calc-area');
             const area = parseFloat(areaInput.value);
 
             if (isNaN(area) || area <= 0) {
-                addInputError(areaInput, 'Insira uma área válida.');
+                if (typeof addInputError === 'function') addInputError(areaInput, 'Insira uma área válida.');
                 isValidCalc = false;
             }
             if (!isValidCalc) {
                 if(btuResultWrapper) btuResultWrapper.style.display = 'none';
-                if(btuResultWrapper) btuResultWrapper.classList.remove('visible');
+                if(btuResultWrapper) btuResultWrapper.classList.remove('visible'); // Supondo que 'visible' é uma classe sua
                 return;
             }
 
-            const pessoasExtras = parseInt(document.getElementById('calc-pessoas').value);
-            const janelas = parseInt(document.getElementById('calc-janelas').value);
-            const incidenciaSol = document.getElementById('calc-sol').value;
-            const eletronicos = parseInt(document.getElementById('calc-eletronicos').value);
+            const pessoasExtrasSelect = document.getElementById('calc-pessoas');
+            const janelasSelect = document.getElementById('calc-janelas');
+            const incidenciaSolSelect = document.getElementById('calc-sol');
+            const eletronicosSelect = document.getElementById('calc-eletronicos');
+
+            const pessoasExtras = pessoasExtrasSelect ? parseInt(pessoasExtrasSelect.value) : 0;
+            const janelas = janelasSelect ? parseInt(janelasSelect.value) : 0;
+            const incidenciaSol = incidenciaSolSelect ? incidenciaSolSelect.value : 'manha';
+            const eletronicos = eletronicosSelect ? parseInt(eletronicosSelect.value) : 0;
+
             let btuBasePorMetroQuadrado = incidenciaSol === 'tarde' ? 800 : 600;
             let btuCalculado = (area * btuBasePorMetroQuadrado) + (pessoasExtras * 600) + (janelas * 600) + (eletronicos * 600);
             const capacidadesComerciais = [7500, 9000, 12000, 18000, 22000, 24000, 27000, 30000, 36000, 48000, 60000];
@@ -292,7 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (btuResultWrapper) {
                 btuResultWrapper.style.display = 'block';
-                btuResultWrapper.classList.add('visible');
+                btuResultWrapper.classList.add('visible'); // Supondo que 'visible' é uma classe sua
                 btuResultWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         });
@@ -304,8 +383,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     btuResultWrapper.classList.remove('visible');
                 }
                 if (btuRangeSuggestionP) btuRangeSuggestionP.style.display = 'none';
-                clearInputErrors(btuCalculatorForm);
-                // O formulário será resetado pelo type="reset"
+                if (typeof clearInputErrors === 'function') clearInputErrors(btuCalculatorForm);
             });
         }
     }
@@ -315,61 +393,53 @@ document.addEventListener('DOMContentLoaded', () => {
     // =======================================================
     const filterToggleButtonMobile = document.getElementById('filter-toggle-mobile-btn');
     const filtersPanel = document.getElementById('filters-sidebar-panel');
-    const filterPanelCloseButton = filtersPanel ? filtersPanel.querySelector('.filter-close-button') : null;
-    const filterApplyMobileButton = filtersPanel ? filtersPanel.querySelector('.filter-apply-btn-action') : null;
-    // bodyOverlay já foi selecionado para o menu principal
 
-    function openMobileFiltersPanel() {
-        if (filtersPanel && bodyOverlay) {
-            // Se o menu principal estiver aberto, fecha ele primeiro
-            if (mobileNavLinks && mobileNavLinks.classList.contains('active')) {
-                closeMobileMenu(); // Assume que closeMobileMenu não vai fechar o overlay se este painel for abrir
+    if (filterToggleButtonMobile && filtersPanel) { // Verifica se os elementos existem
+        const filterPanelCloseButton = filtersPanel.querySelector('.filter-close-button');
+        const filterApplyMobileButton = filtersPanel.querySelector('.filter-apply-btn-action');
+
+        function openMobileFiltersPanel() {
+            if (filtersPanel && bodyOverlay) {
+                if (mobileNavLinks && mobileNavLinks.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+                filtersPanel.classList.add('open');
+                bodyOverlay.classList.add('active');
+                bodyOverlay.classList.add('filters-overlay-active');
+                if (filterToggleButtonMobile) filterToggleButtonMobile.setAttribute('aria-expanded', 'true');
+                document.body.style.overflow = 'hidden';
             }
-            filtersPanel.classList.add('open');
-            bodyOverlay.classList.add('active');
-            // Adiciona uma classe específica ao overlay para o painel de filtros,
-            // assim, o clique no overlay só fecha o que estiver ativo.
-            bodyOverlay.classList.add('filters-overlay-active');
-            if (filterToggleButtonMobile) filterToggleButtonMobile.setAttribute('aria-expanded', 'true');
-            document.body.style.overflow = 'hidden';
         }
-    }
 
-    function closeMobileFiltersPanel() {
-        if (filtersPanel && bodyOverlay) {
-            filtersPanel.classList.remove('open');
-            bodyOverlay.classList.remove('filters-overlay-active'); // Remove classe específica
-            // Só remove a classe 'active' do overlay e restaura scroll do body
-            // se o menu mobile principal TAMBÉM não estiver ativo.
-            if (!mobileNavLinks?.classList.contains('active')) {
-                bodyOverlay.classList.remove('active');
-                document.body.style.overflow = '';
+        function closeMobileFiltersPanel() {
+            if (filtersPanel && bodyOverlay) {
+                filtersPanel.classList.remove('open');
+                bodyOverlay.classList.remove('filters-overlay-active');
+                if (!mobileNavLinks?.classList.contains('active')) {
+                    bodyOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+                if (filterToggleButtonMobile) filterToggleButtonMobile.setAttribute('aria-expanded', 'false');
             }
-            if (filterToggleButtonMobile) filterToggleButtonMobile.setAttribute('aria-expanded', 'false');
         }
-    }
 
-    if (filterToggleButtonMobile) {
         filterToggleButtonMobile.addEventListener('click', openMobileFiltersPanel);
-    }
 
-    if (filterPanelCloseButton) {
-        filterPanelCloseButton.addEventListener('click', closeMobileFiltersPanel);
-    }
+        if (filterPanelCloseButton) {
+            filterPanelCloseButton.addEventListener('click', closeMobileFiltersPanel);
+        }
 
-    // Se o botão "Aplicar Filtros" dentro do painel mobile também fecha o painel:
-    if (filterApplyMobileButton) {
-        filterApplyMobileButton.addEventListener('click', () => {
-            // A função applyFilters() já é chamada pelo 'change' dos checkboxes.
-            // Este botão no mobile agora apenas fecha o painel.
-            closeMobileFiltersPanel();
-        });
+        if (filterApplyMobileButton) {
+            filterApplyMobileButton.addEventListener('click', () => {
+                closeMobileFiltersPanel();
+            });
+        }
     }
 
     // Lógica do bodyOverlay ATUALIZADA para fechar ou o menu ou os filtros
     if (bodyOverlay) {
         bodyOverlay.addEventListener('click', (event) => {
-            if (event.target === bodyOverlay) { // Garante que o clique foi no overlay mesmo
+            if (event.target === bodyOverlay) {
                 if (filtersPanel && filtersPanel.classList.contains('open')) {
                     closeMobileFiltersPanel();
                 } else if (mobileNavLinks && mobileNavLinks.classList.contains('active')) {
@@ -390,50 +460,52 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // === Galeria da Página de Produto Detalhe (JS estava comentado no HTML) ===
-    // Seletor do container de thumbnails, se você adicionar esta classe no produto-detalhe.html
+    // === Galeria da Página de Produto Detalhe ===
     const productThumbnailsContainer = document.querySelector('.product-image-thumbnails');
     if (productThumbnailsContainer) {
         const mainProductImage = document.getElementById('main-product-image');
         const thumbnails = productThumbnailsContainer.querySelectorAll('img');
 
-        thumbnails.forEach(thumb => {
-            // Função para ser chamada no clique ou no keydown
+        if (mainProductImage && thumbnails.length > 0) { // Verifica se os elementos principais existem
             function handleThumbInteraction(clickedThumb) {
-                if (mainProductImage) {
-                    const newImageSrc = clickedThumb.dataset.fullimage || clickedThumb.src; // Prioriza data-attribute
-                    mainProductImage.src = newImageSrc;
-                    mainProductImage.alt = clickedThumb.alt;
-                }
+                const newImageSrc = clickedThumb.dataset.fullimage || clickedThumb.src;
+                mainProductImage.src = newImageSrc;
+                mainProductImage.alt = clickedThumb.alt;
                 thumbnails.forEach(t => t.classList.remove('active-thumb'));
                 clickedThumb.classList.add('active-thumb');
             }
 
-            thumb.addEventListener('click', function() {
-                handleThumbInteraction(this);
-            });
-
-            thumb.addEventListener('keydown', function(event) {
-                if (event.key === 'Enter' || event.key === ' ') { // Enter ou Espaço
-                    event.preventDefault(); // Previne scroll do espaço
+            thumbnails.forEach(thumb => {
+                thumb.addEventListener('click', function() {
                     handleThumbInteraction(this);
+                });
+                thumb.addEventListener('keydown', function(event) {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        handleThumbInteraction(this);
+                    }
+                });
+                if (!thumb.hasAttribute('tabindex')) {
+                     thumb.setAttribute('tabindex', '0');
                 }
             });
-            // Tornar thumbnails focáveis
-            if (!thumb.hasAttribute('tabindex')) {
-                 thumb.setAttribute('tabindex', '0');
-            }
-        });
 
-        // Ativar a primeira thumb por padrão (se houver)
-        if (thumbnails.length > 0 && mainProductImage && !productThumbnailsContainer.querySelector('.active-thumb')) {
-             const firstThumb = thumbnails[0];
-             firstThumb.classList.add('active-thumb');
-             // Opcional: atualizar imagem principal com base na primeira thumb
-             // mainProductImage.src = firstThumb.dataset.fullimage || firstThumb.src;
-             // mainProductImage.alt = firstThumb.alt;
+            if (!productThumbnailsContainer.querySelector('.active-thumb')) {
+                 const firstThumb = thumbnails[0];
+                 firstThumb.classList.add('active-thumb');
+                 // Opcional:
+                 // mainProductImage.src = firstThumb.dataset.fullimage || firstThumb.src;
+                 // mainProductImage.alt = firstThumb.alt;
+            }
         }
     }
+        console.log("Botões de filtro encontrados:", filterGroupToggles);
+        filterGroupToggles.forEach((button, index) => {
+        const contentId = button.getAttribute('aria-controls');
+        const contentElement = document.getElementById(contentId);
+        console.log(`Botão ${index}:`, button, `aria-controls="${contentId}"`);
+        console.log(`Elemento de conteúdo para botão ${index}:`, contentElement);
+    });
 
+}); // Fim do ÚNICO DOMContentLoaded
 
-}); // Fim do DOMContentLoaded

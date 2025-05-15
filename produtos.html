@@ -85,52 +85,91 @@
 
                         <form id="filter-form">
                             <div class="filter-group">
-                                <h3><label for="ftype-dummy">Tipo de Aparelho</label></h3>
-                                <input type="hidden" id="ftype-dummy">
-                                <label><input type="checkbox" name="tipo" value="split"><span>Split Hi-Wall</span></label><br>
-                                <label><input type="checkbox" name="tipo" value="janela"><span>Janela</span></label><br>
-                                <label><input type="checkbox" name="tipo" value="portatil"><span>Portátil</span></label><br>
-                                <label><input type="checkbox" name="tipo" value="cassete"><span>Cassete</span></label><br>
-                                <label><input type="checkbox" name="tipo" value="piso-teto"><span>Piso Teto</span></label><br>
+                                <h3>
+                                    <button type="button" class="filter-group-toggle" aria-expanded="false" aria-controls="filter-content-tipo">
+                                        <span>Tipo de Aparelho</span>
+                                        <i class="fas fa-chevron-down filter-group-icon"></i>
+                                    </button>
+                                </h3>
+                                <div class="filter-group-content" id="filter-content-tipo"> 
+                                    <input type="hidden" id="ftype-dummy"> <!-- Mantenha se precisar -->
+                                    <label><input type="checkbox" name="tipo" value="split"><span>Split Hi-Wall</span></label><br>
+                                    <label><input type="checkbox" name="tipo" value="janela"><span>Janela</span></label><br>
+                                    <label><input type="checkbox" name="tipo" value="portatil"><span>Portátil</span></label><br>
+                                    <label><input type="checkbox" name="tipo" value="cassete"><span>Cassete</span></label><br>
+                                    <label><input type="checkbox" name="tipo" value="piso-teto"><span>Piso Teto</span></label><br>
+                                </div>
                             </div>
                             <div class="filter-group">
-                                 <h3><label for="fbtu-dummy">Capacidade (BTUs)</label></h3>
-                                 <input type="hidden" id="fbtu-dummy">
-                                 <label><input type="checkbox" name="btu" value="7500"> <span>7.000 - 7.500</span></label><br>
-                                 <label><input type="checkbox" name="btu" value="9000"> <span>9.000</span></label><br>
-                                 <label><input type="checkbox" name="btu" value="12000"> <span>12.000</span></label><br>
-                                 <label><input type="checkbox" name="btu" value="18000"> <span>18.000</span></label><br>
-                                 <label><input type="checkbox" name="btu" value="24000"> <span>22.000 - 24.000</span></label><br>
-                                 <label><input type="checkbox" name="btu" value="30000"> <span>27.000 - 30.000</span></label><br>
-                                 <label><input type="checkbox" name="btu" value="30000+"> <span>Acima de 30.000</span></label><br>
+                                 <h3>
+                                    <button type="button" class="filter-group-toggle" aria-expanded="false" aria-controls="filter-content-func">
+                                        <span>Capacidade (BTUs)</span>
+                                        <i class="fas fa-chevron-down filter-group-icon"></i>
+                                    </button>
+                                </h3>
+                                 <div class="filter-group-content" id="filter-content-btu"> 
+                                    <input type="hidden" id="fbtu-dummy">
+                                    <label><input type="checkbox" name="btu" value="7500"> <span>7.000 - 7.500</span></label><br>
+                                    <label><input type="checkbox" name="btu" value="9000"> <span>9.000</span></label><br>
+                                    <label><input type="checkbox" name="btu" value="12000"> <span>12.000</span></label><br>
+                                    <label><input type="checkbox" name="btu" value="18000"> <span>18.000</span></label><br>
+                                    <label><input type="checkbox" name="btu" value="24000"> <span>22.000 - 24.000</span></label><br>
+                                    <label><input type="checkbox" name="btu" value="30000"> <span>27.000 - 30.000</span></label><br>
+                                    <label><input type="checkbox" name="btu" value="30000+"> <span>Acima de 30.000</span></label><br>
+                                </div>
                             </div>
                              <div class="filter-group">
-                                 <h3><label for="fmarca-dummy">Marca</label></h3>
-                                 <input type="hidden" id="fmarca-dummy">
-                                 <label><input type="checkbox" name="marca" value="lg"> <span>LG</span></label><br>
-                                 <label><input type="checkbox" name="marca" value="samsung"> <span>Samsung</span></label><br>
-                                 <label><input type="checkbox" name="marca" value="elgin"> <span>Elgin</span></label><br>
-                                 <label><input type="checkbox" name="marca" value="gree"> <span>Gree</span></label><br>
-                                 <label><input type="checkbox" name="marca" value="consul"> <span>Consul</span></label><br>
-                                 <label><input type="checkbox" name="marca" value="midea"> <span>Midea</span></label><br>
-                                 <label><input type="checkbox" name="marca" value="electrolux"> <span>Electrolux</span></label><br>
+                                 <h3>
+                                    <button type="button" class="filter-group-toggle" aria-expanded="false" aria-controls="filter-content-func">
+                                        <span>Marca</span>
+                                        <i class="fas fa-chevron-down filter-group-icon"></i>
+                                    </button>
+                                </h3>
+                                 <div class="filter-group-content" id="filter-content-marca"> 
+                                    <input type="hidden" id="fmarca-dummy">
+                                    <label><input type="checkbox" name="marca" value="lg"> <span>LG</span></label><br>
+                                    <label><input type="checkbox" name="marca" value="samsung"> <span>Samsung</span></label><br>
+                                    <label><input type="checkbox" name="marca" value="elgin"> <span>Elgin</span></label><br>
+                                    <label><input type="checkbox" name="marca" value="gree"> <span>Gree</span></label><br>
+                                    <label><input type="checkbox" name="marca" value="consul"> <span>Consul</span></label><br>
+                                    <label><input type="checkbox" name="marca" value="midea"> <span>Midea</span></label><br>
+                                    <label><input type="checkbox" name="marca" value="electrolux"> <span>Electrolux</span></label><br>
+                                </div>
                             </div>
                             <div class="filter-group">
-                                <h3><label for="ffunc-dummy">Funcionalidades Extras</label></h3>
-                                <input type="hidden" id="ffunc-dummy">
-                                <label><input type="checkbox" name="func" value="inverter"> <span>Tecnologia Inverter</span></label><br>
-                                <label><input type="checkbox" name="func" value="quente-frio"> <span>Ciclo Quente e Frio</span></label><br>
-                                <label><input type="checkbox" name="func" value="wifi"> <span>Conectividade Wi-Fi</span></label><br>
-                                <label><input type="checkbox" name="func" value="serpentina-cobre"> <span>Serpentina de Cobre</span></label><br>
-                                <label><input type="checkbox" name="func" value="autolimpeza"> <span>Função Autolimpeza</span></label><br>
+                                <h3>
+                                    <button type="button" class="filter-group-toggle" aria-expanded="false" aria-controls="filter-content-func">
+                                        <span>Funcionalidades Extras</span>
+                                        <i class="fas fa-chevron-down filter-group-icon"></i>
+                                    </button>
+                                </h3>
+                                <div class="filter-group-content" id="filter-content-func"> 
+                                    <input type="hidden" id="ffunc-dummy">
+                                    <label><input type="checkbox" name="func" value="inverter"> <span>Tecnologia Inverter</span></label><br>
+                                    <label><input type="checkbox" name="func" value="quente-frio"> <span>Ciclo Quente e Frio</span></label><br>
+                                    <label><input type="checkbox" name="func" value="wifi"> <span>Conectividade Wi-Fi</span></label><br>
+                                    <label><input type="checkbox" name="func" value="serpentina-cobre"> <span>Serpentina de Cobre</span></label><br>
+                                    <label><input type="checkbox" name="func" value="autolimpeza"> <span>Função Autolimpeza</span></label><br>
+                                </div>
                             </div>
                         </form>
-                        <button type="button" class="button filter-apply-btn-action" id="filter-apply-btn">Aplicar Filtros</button>
                     </aside>
 
                     <section class="product-list-container" aria-live="polite">
                         <div class="product-grid">
                             <article class="product-card" id="prod-ex1" data-tipo="split" data-btu="9000" data-marca="lg" data-funcionalidades="inverter wifi">
+                                <div class="product-image-wrapper"><img src="https://placehold.co/400x300/EFEFEF/777?text=LG+9000+BTU" alt="LG Split 9000 BTUs" loading="lazy" ></div>
+                                <div class="product-content"> <h3>Split LG Inverter 9.000 Frio</h3> <p class="product-brand">LG</p> <p class="product-short-desc">Economia e silêncio com tecnologia Inverter.</p> <p class="product-price">R$ 2.199,00</p> <a href="produto-detalhe.html" class="button">Ver Detalhes</a> </div>
+                            </article>
+                            <article class="product-card" id="prod-ex2" data-tipo="janela" data-btu="10000" data-marca="consul" data-funcionalidades="quente-frio">
+                                 <div class="product-image-wrapper"><img src="https://placehold.co/400x300/EFEFEF/777?text=Consul+10000+BTU" alt="Consul Janela 10000 BTUs Quente/Frio" loading="lazy" ></div>
+                                <div class="product-content"> <h3>Ar Janela Consul 10.000 Q/F</h3> <p class="product-brand">Consul</p> <p class="product-short-desc">Climatização para o ano todo, fácil instalação.</p> <p class="product-price">R$ 1.890,00</p> <a href="produto-detalhe.html" class="button">Ver Detalhes</a> </div>
+                            </article>
+                            <article class="product-card" id="prod-ex3" data-tipo="split" data-btu="12000" data-marca="elgin" data-funcionalidades="inverter autolimpeza serpentina-cobre">
+                                 <div class="product-image-wrapper"><img src="https://placehold.co/400x300/EFEFEF/777?text=Elgin+12000+BTU" alt="Elgin Split Inverter 12000 BTUs Eco II" loading="lazy" ></div>
+                                <div class="product-content"> <h3>Split Elgin Eco II Inverter 12.000 Frio</h3> <p class="product-brand">Elgin</p> <p class="product-short-desc">Gás R-32, econômico e função Auto Clean.</p> <p class="product-price">R$ 2.249,00</p> <a href="produto-detalhe.html" class="button">Ver Detalhes</a> </div>
+                            </article>
+                             <article class="product-card" id="prod-ex1" data-tipo="split" data-btu="9000" data-marca="lg" data-funcionalidades="inverter wifi">
                                 <div class="product-image-wrapper"><img src="https://placehold.co/400x300/EFEFEF/777?text=LG+9000+BTU" alt="LG Split 9000 BTUs" loading="lazy" ></div>
                                 <div class="product-content"> <h3>Split LG Inverter 9.000 Frio</h3> <p class="product-brand">LG</p> <p class="product-short-desc">Economia e silêncio com tecnologia Inverter.</p> <p class="product-price">R$ 2.199,00</p> <a href="produto-detalhe.html" class="button">Ver Detalhes</a> </div>
                             </article>

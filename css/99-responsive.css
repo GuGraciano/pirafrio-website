@@ -27,23 +27,47 @@
     .product-detail-page .product-info-column h1 { font-size: 1.7rem; }
 
 
-    /* Mantém sidebar de filtros no tablet (pode mudar para empilhar se preferir) */
+    /* FILTROS NO TABLET: Por padrão, manterá o acordeão do desktop.
+       Se quiser desativar o acordeão no tablet também (comportamento igual ao mobile),
+       descomente o bloco abaixo e ajuste os seletores se necessário.
+       O breakpoint do JavaScript (DESKTOP_BREAKPOINT_FILTERS) também precisaria ser ajustado para 993px.
+    */
+    /*
     .produtos-page .filters-and-products-layout {
-        /* grid-template-columns: var(--filter-sidebar-width, 260px) 1fr; */
-        /* Para empilhar no tablet também, descomente a linha abaixo e comente a de cima: */
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; // Empilha filtros e produtos
     }
-    .produtos-page .filters { /* Se empilhado no tablet */
-        /* position: static; width: 100%; max-height: none; margin-bottom: var(--spacing-xl); top: auto; */
-        /* Ajustes específicos para o sticky no tablet se ele permanecer lateral */
-        top: calc(var(--header-height-approx) + var(--spacing-sm));
-        max-height: calc(100vh - var(--header-height-approx) - var(--spacing-sm) - var(--spacing-lg) - 10px);
+    .produtos-page .filters { // Se empilhado no tablet
+        position: static;
+        width: 100%;
+        max-height: none;
+        margin-bottom: var(--spacing-xl);
+        top: auto;
+        overflow-y: visible;
     }
-     /* Se os filtros forem empilhados em tablet, o botão mobile de toggle já deveria aparecer.
-       Para isso, a media query abaixo (max-width: 768px) precisaria ser max-width: 992px
-       para .filter-controls-area-mobile, .produtos-page aside.filters etc.
-       Vamos manter 768px por enquanto para a mudança drástica para painel.
-     */
+    .produtos-page .filter-group .filter-group-toggle .filter-group-icon {
+        display: none !important;
+    }
+    .produtos-page .filter-group .filter-group-content {
+        display: block !important;
+        padding-top: var(--spacing-sm);
+        padding-left: 0;
+    }
+    .produtos-page .filter-group .filter-group-toggle {
+        cursor: default;
+        border-bottom: 1px dashed var(--border-color-darker);
+        margin-bottom: var(--spacing-md);
+    }
+    .produtos-page .filter-group h3 { // Se o botão está dentro do h3
+        margin-bottom: 0;
+    }
+    .produtos-page .filter-controls-area-mobile { // Botão para abrir painel de filtros
+        display: block;
+        margin-bottom: var(--spacing-lg);
+    }
+    .produtos-page aside.filters { // Se for usar painel lateral no tablet
+        // Ajustar estilos do painel para tablet se necessário
+    }
+    */
 }
 
 
@@ -60,86 +84,122 @@
     .main-header { height: auto; min-height: var(--header-height-approx); }
     .navbar { padding-top: var(--spacing-xs); padding-bottom: var(--spacing-xs); }
 
-    /* --- COMPORTAMENTO DOS FILTROS NO MOBILE --- */
+    /* --- COMPORTAMENTO DOS FILTROS NO MOBILE (PAINEL LATERAL) --- */
     .produtos-page .filters-and-products-layout {
         display: block; /* Tira o grid, elementos empilham */
     }
-    .produtos-page .filter-controls-area-mobile { /* Botão "Filtrar Produtos" */
-        display: block; /* Torna visível */
+    .produtos-page .filter-controls-area-mobile { /* Botão "Filtrar Produtos" que abre o painel */
+        display: block;
         margin-bottom: var(--spacing-lg);
     }
     .produtos-page .filter-controls-area-mobile .filter-toggle-button-mobile {
-         width: 100%;
+        width: 100%;
         font-size: 0.95rem;
-        justify-content: center;
-        border-color: var(--border-color-darker);
-    }
-    .produtos-page .filter-toggle-button-mobile .arrow-icon {
-        margin-left: var(--spacing-xs);
-        transition: transform 0.3s ease;
-    }
-    .produtos-page .filter-toggle-button-mobile[aria-expanded="true"] .arrow-icon {
-        transform: rotate(180deg); /* Seta vira para cima quando aberto */
     }
 
-    /* Painel de Filtros no Mobile */
+    /* Estilos para os grupos de filtro DENTRO DO PAINEL MOBILE */
+    .produtos-page aside.filters form#filter-form .filter-group h3 {
+        /* O H3 agora é apenas um container para o botão, que será estilizado como texto normal */
+        margin-bottom: 0; /* Resetado pois o botão terá a margem */
+        padding-bottom: 0;
+        border-bottom: none; /* A borda inferior será do botão */
+    }
+
+    .produtos-page aside.filters form#filter-form .filter-group .filter-group-toggle {
+        /* Transforma o toggle em um título de seção normal, não clicável para acordeão */
+        display: block;
+        background: none;
+        border: none;
+        border-bottom: 1px dashed var(--border-color-darker); /* Linha abaixo do título */
+        padding: var(--spacing-xs) 0 var(--spacing-sm) 0; /* Padding do título */
+        margin: 0 0 var(--spacing-md) 0; /* Margem abaixo do título, antes dos checkboxes */
+        font-family: inherit;
+        cursor: default; /* Não é um botão de acordeão */
+        justify-content: flex-start; /* Para o caso de ainda ser flex */
+        width: 100%;
+        text-align: left;
+    }
+
+    .produtos-page aside.filters form#filter-form .filter-group .filter-group-toggle span {
+        /* Estilo do texto do título do filtro */
+        font-size: 1rem; /* Ou o tamanho que você quer para os títulos no painel mobile */
+        font-weight: 600;
+        color: var(--dark-text-color);
+        line-height: 1.3;
+    }
+
+    .produtos-page aside.filters form#filter-form .filter-group .filter-group-toggle .filter-group-icon {
+        display: none !important; /* ESCONDE A SETA NO MOBILE */
+    }
+
+    .produtos-page aside.filters form#filter-form .filter-group .filter-group-content {
+        display: block !important;
+        max-height: none !important; /* Remove qualquer limite de max-height */
+        overflow: visible !important; /* Garante que o conteúdo não seja cortado */
+        opacity: 1 !important; /* Garante visibilidade total */
+        padding-top: var(--spacing-sm); /* Ou o padding que você quer no mobile */
+        /* padding-bottom: var(--spacing-sm); */
+        /* Remova a transição no mobile para que não haja tentativa de animação */
+        transition: none !important;
+    }
+    /* Os estilos de label e input dentro de .filter-group-content virão de produtos.css,
+       a menos que você queira customizá-los especificamente para o painel mobile aqui. */
+
+
+    /* Painel de Filtros no Mobile (quando desliza da lateral) */
     .produtos-page aside.filters {
         position: fixed;
-        left: -100%;
-        top: 0;
-        width: min(90vw, 320px); /* Largura do painel */
+        left: -100%; /* Começa escondido */
+        top: 0 !important; /* Sobrescreve o 'top' do sticky do desktop */
+        width: min(85vw, 300px); /* Largura do painel */
         height: 100vh;
-        background-color: var(--white-bg-color);
-        z-index: 1015; /* Acima de tudo, até do overlay */
-        overflow-y: auto;
-        transition: left 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-        padding: 0;
-        box-shadow: 3px 0 15px rgba(0,0,0,0.15);
-        border-radius: 0;
-        border: none;
         max-height: 100vh; /* Garante que não ultrapasse a tela */
-        top: 0 !important; /* Sobrescreve o top do sticky */
+        background-color: var(--white-bg-color);
+        z-index: 1005; /* Acima do overlay e de outros conteúdos */
+        overflow-y: auto; /* Permite scroll dentro do painel se o conteúdo for grande */
+        transition: left 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+        padding: 0; /* O padding será nos elementos internos */
+        box-shadow: 3px 0 15px rgba(0,0,0,0.15);
+        border-radius: 0; /* Sem bordas arredondadas para um painel lateral */
+        border: none;
     }
-    .produtos-page aside.filters.open { /* Quando painel está aberto */
+    .produtos-page aside.filters.open { /* Classe adicionada pelo JS para mostrar o painel */
         left: 0;
     }
-    .produtos-page .filters .filters-header-desktop { /* Esconde header desktop */
+    .produtos-page .filters .filters-header-desktop { /* Esconde cabeçalho desktop no painel mobile */
         display: none;
     }
-    .produtos-page .filters .filters-header-mobile { /* Mostra header mobile */
+    .produtos-page .filters .filters-header-mobile { /* Mostra cabeçalho específico para o painel mobile */
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: var(--spacing-md) var(--spacing-lg);
         background-color: var(--primary-color);
         color: var(--white-bg-color);
-        position: sticky; /* Para o header do painel ficar fixo no topo DO PAINEL */
-        top: 0;
-        z-index: 1;
     }
     .produtos-page .filters .filters-header-mobile h2 {
-        font-size: 1.1rem;
-        color: inherit;
-        margin-bottom: 0;
-        border-bottom: none;
-        padding: 0;
+        font-size: 1.1rem; color: inherit; margin-bottom: 0; border-bottom: none; padding: 0;
     }
     .produtos-page .filters .filter-close-button {
         background: none; border: none; color: var(--white-bg-color);
-        font-size: 1.3rem; padding: var(--spacing-xxs); line-height: 1; opacity: 0.9;
+        font-size: 1.3rem; padding: var(--spacing-xxs); line-height: 1; opacity: 0.8;
     }
     .produtos-page .filters .filter-close-button:hover { opacity: 1; }
-    .produtos-page .filters form#filter-form {
-        padding: var(--spacing-lg);
+
+    .produtos-page aside.filters form#filter-form { /* Padding para o conteúdo do formulário dentro do painel */
+        padding: var(--spacing-md) var(--spacing-lg) var(--spacing-lg);
     }
     .produtos-page .filters .filter-apply-btn-action { /* Botão Aplicar DENTRO do painel mobile */
-        display: block; /* Mostra o botão aplicar */
-        margin: 0 var(--spacing-lg) var(--spacing-lg) var(--spacing-lg);
+        display: block; /* Mostra o botão aplicar no painel */
+        margin: 0 var(--spacing-lg) var(--spacing-lg) var(--spacing-lg); /* Ajuste da margem se o padding acima já cuida do topo */
+        /* Se o padding do form#filter-form já dá espaço, pode ser:
+           margin: var(--spacing-md) 0 0 0; para dar espaço acima dele dentro do padding do form.
+        */
     }
     .body-overlay.active.filters-overlay-active { /* Classe para o overlay específico dos filtros */
         display: block;
         opacity: 1;
-        z-index: 1004; /* Abaixo do painel de filtros */
+        z-index: 1004; /* Abaixo do painel de filtros, mas acima do resto */
     }
 
     /* Calculadora de BTUs */
