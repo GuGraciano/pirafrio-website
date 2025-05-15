@@ -1,0 +1,338 @@
+/* ===================================== */
+/* == CSS ESPECÍFICO: PÁGINA SOBRE NÓS == */
+/* ===================================== */
+
+/* Adicionar classe .sobre-page ao <body> do sobre.html para especificidade */
+/* <body class="sobre-page"> */
+
+/* --- Hero da Página Sobre --- */
+.sobre-page .about-hero {
+    background-image: linear-gradient(rgba(var(--primary-color-rgb, 13, 71, 161), 0.65), rgba(var(--secondary-color-rgb, 21, 101, 192), 0.55)), url('https://placehold.co/1920x450/455A64/E0E0E0?text=Pirafrio+Sobre+Nós'); /* SUBSTITUIR IMAGEM DE FUNDO */
+    background-size: cover;
+    background-position: center center;
+    color: var(--white-bg-color);
+    text-align: center;
+    padding: clamp(70px, 12vh, 100px) var(--spacing-md);
+    animation: fadeIn 0.8s ease-out;
+}
+.sobre-page .about-hero h1 {
+    font-size: clamp(2rem, 5.5vw, 3rem);
+    margin-bottom: var(--spacing-xs);
+    color: var(--white-bg-color);
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+}
+.sobre-page .about-hero p {
+    font-size: clamp(1.05rem, 3vw, 1.3rem);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.9;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+
+/* --- Seção Principal: História e Compromisso (.story-commitment) --- */
+.sobre-page .story-commitment .section-title {
+    margin-bottom: var(--spacing-xs); /* Título mais próximo do lead */
+}
+.sobre-page .story-commitment .lead {
+    margin-bottom: var(--spacing-xxl);
+    max-width: 750px; /* Limita largura do lead */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sobre-page .history-section { /* Cada bloco de história (imagem + texto) */
+    display: grid;
+    grid-template-columns: 1fr; /* Padrão mobile */
+    gap: var(--spacing-xl);
+    align-items: center;
+    margin-bottom: var(--spacing-xxxl); /* Mais espaço entre blocos */
+}
+.sobre-page .history-section:last-of-type {
+    margin-bottom: 0;
+}
+.sobre-page .history-image img {
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--box-shadow-md); /* Sombra um pouco mais forte */
+    /* max-height: 480px; */ /* Opcional */
+    object-fit: cover;
+    width: 100%;
+    animation: zoomIn 0.7s ease-out 0.1s forwards;
+    opacity: 0;
+}
+.sobre-page .history-text {
+    animation: fadeInSlideUp 0.7s ease-out 0.3s forwards;
+    opacity: 0;
+}
+.sobre-page .history-text h3 {
+    font-size: clamp(1.4rem, 4vw, 1.8rem); /* Título do bloco de história */
+    margin-bottom: var(--spacing-md);
+    color: var(--primary-color);
+    font-weight: 700;
+}
+.sobre-page .history-text p {
+    margin-bottom: var(--spacing-md);
+    color: var(--medium-text-color);
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+.sobre-page .history-text p strong {
+    color: var(--dark-text-color);
+    font-weight: 600; /* Default já é 600 ou 700 */
+}
+
+/* Linha do Tempo dentro de .history-text (Se usada) */
+.sobre-page .history-timeline {
+    list-style: none;
+    padding-left: 0;
+    position: relative;
+    margin-top: var(--spacing-lg);
+    padding-left: var(--spacing-md); /* Espaço para os marcadores ficarem dentro */
+    border-left: 3px solid var(--primary-color);
+}
+.sobre-page .timeline-event {
+    position: relative;
+    padding-left: var(--spacing-xl); /* Espaço do marcador até o texto */
+    margin-bottom: var(--spacing-lg);
+    animation: fadeInSlideUp 0.6s ease-out both; /* 'both' mantém o estado final */
+    opacity: 0;
+}
+.sobre-page .timeline-event:nth-of-type(1) { animation-delay: 0.4s; }
+.sobre-page .timeline-event:nth-of-type(2) { animation-delay: 0.55s; }
+.sobre-page .timeline-event:nth-of-type(3) { animation-delay: 0.7s; }
+
+.sobre-page .timeline-event::before { /* Marcador da timeline */
+    content: '';
+    position: absolute;
+    left: -11px; /* Ajusta para ficar sobre a linha (3px da linha + 8px de metade do diâmetro) */
+    top: 5px;
+    width: 16px; /* Tamanho do marcador */
+    height: 16px;
+    background-color: var(--white-bg-color);
+    border: 3px solid var(--primary-color);
+    border-radius: 50%;
+    z-index: 1;
+    box-shadow: 0 0 0 3px var(--white-bg-color); /* Anel branco em volta do marcador */
+}
+.sobre-page .timeline-event strong { /* Título/Ano do evento */
+    display: block;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-xxs);
+    font-size: 1.1rem;
+}
+.sobre-page .timeline-event p {
+    font-size: 0.9rem; /* Texto da timeline menor */
+    margin-bottom: 0;
+    color: var(--medium-text-color);
+    line-height: 1.6;
+}
+
+/* --- Seção Missão, Visão e Valores (.mvv-highlight) --- */
+/* Os estilos de .mvv-card e .mission-vision-values estão no 04-components.css
+   Aqui podemos ter ajustes específicos do contexto "Sobre" */
+.sobre-page .mvv-highlight .section-title {
+    margin-bottom: var(--spacing-xs);
+}
+.sobre-page .mvv-highlight .lead {
+    margin-bottom: var(--spacing-xxl);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* Animação escalonada para os cards MVV na página Sobre */
+.sobre-page .mission-vision-values .mvv-card { opacity: 0; } /* Para a animação funcionar */
+.sobre-page .mission-vision-values .mvv-card:nth-child(1) { animation: fadeInSlideUp 0.6s ease-out 0.1s forwards; }
+.sobre-page .mission-vision-values .mvv-card:nth-child(2) { animation: fadeInSlideUp 0.6s ease-out 0.25s forwards; }
+.sobre-page .mission-vision-values .mvv-card:nth-child(3) { animation: fadeInSlideUp 0.6s ease-out 0.4s forwards; }
+
+.sobre-page .mvv-card ul {
+    text-align: left;
+    margin-top: var(--spacing-md);
+    padding-left: var(--spacing-md); /* Recuo interno para a lista de valores */
+}
+.sobre-page .mvv-card ul li {
+    list-style-type: none; /* Removido disc, já usa .fa-ul com ícones no HTML */
+    margin-bottom: var(--spacing-sm);
+    font-size: 0.95rem;
+    color: var(--medium-text-color);
+    line-height: 1.6;
+}
+
+/* DENTRO DE: css/pages/sobre.css */
+
+.sobre-page .mission-vision-values .mvv-card .valores-lista-debug {
+    text-align: left !important; /* Força alinhamento à esquerda */
+    list-style: none;
+    padding-left: 0; /* Reset de padding */
+    margin-top: var(--spacing-sm);
+    color: var(--medium-text-color);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.sobre-page .mission-vision-values .mvv-card .valores-lista-debug li {
+    margin-bottom: var(--spacing-sm);
+    display: flex; /* Para alinhar ícone e texto lado a lado */
+    align-items: flex-start; /* Alinha pelo topo se texto tiver múltiplas linhas */
+}
+
+.sobre-page .mission-vision-values .mvv-card .valores-lista-debug li i {
+    color: var(--primary-color);
+    margin-right: var(--spacing-xs); /* Espaço entre ícone e texto */
+    font-size: 1em; /* Tamanho do ícone relativo ao texto */
+    width: 1.5em; /* Garante um espaço fixo para o ícone, evitando que texto encoste */
+    text-align: left; /* Para garantir que o ícone não tente centralizar se herdar algo */
+    flex-shrink: 0; /* Ícone não encolhe */
+    padding-top: 0.1em; /* Pequeno ajuste vertical se necessário */
+}
+
+/* --- Seção do Fundador (.founder-section) --- */
+.sobre-page .founder-section {
+    background-color: var(--light-bg-color);
+    padding: clamp(50px, 8vw, var(--spacing-xxxl)) var(--spacing-md);
+    text-align: center;
+}
+.sobre-page .founder-image {
+    width: clamp(170px, 28vw, 200px);
+    height: clamp(170px, 28vw, 200px);
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: var(--spacing-lg);
+    object-fit: cover;
+    border: 6px solid var(--white-bg-color);
+    box-shadow: var(--box-shadow-md);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.sobre-page .founder-image:hover {
+    transform: scale(1.03) rotate(2deg);
+    box-shadow: var(--box-shadow-lg);
+}
+.sobre-page .founder-section h3 { /* Nome do fundador */
+    margin-bottom: var(--spacing-xxs);
+    font-size: clamp(1.5rem, 4vw, 1.9rem);
+    color: var(--dark-text-color);
+}
+.sobre-page .founder-section .title { /* Cargo do fundador */
+    font-style: italic;
+    color: var(--medium-text-color);
+    margin-bottom: var(--spacing-md);
+    display: block;
+    font-size: 1.1rem;
+}
+.sobre-page .founder-section blockquote {
+    max-width: 750px;
+    margin-top: var(--spacing-md);
+    margin-bottom: var(--spacing-lg); /* Espaço antes da bio */
+    margin-left: auto;
+    margin-right: auto;
+    font-style: italic;
+    color: var(--dark-text-color);
+    font-size: clamp(1.1rem, 3vw, 1.25rem);
+    line-height: 1.8;
+    border-left: 4px solid var(--primary-color);
+    padding: var(--spacing-xs) 0 var(--spacing-xs) var(--spacing-lg);
+    text-align: left;
+    position: relative;
+}
+.sobre-page .founder-section blockquote::before {
+    content: '\201C';
+    position: absolute;
+    left: -8px; /* Posição da aspa ajustada */
+    top: -22px;
+    font-size: 3.5rem;
+    font-family: Georgia, serif;
+    color: var(--primary-color);
+    opacity: 0.2; /* Aspa mais sutil */
+    line-height: 1;
+}
+.sobre-page .founder-section .founder-bio { /* Wrapper da bio */
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.sobre-page .founder-section .founder-bio p {
+    font-size: 1rem;
+    color: var(--medium-text-color);
+    line-height: 1.7;
+    text-align: justify; /* Justifica texto da bio para leitura */
+}
+
+/* --- Seção "Por que nos Escolher?" Revisitada (.why-choose-us-about) --- */
+/* Os estilos de .why-us-revisited e .why-us-item já estão em 04-components.css */
+.sobre-page .why-choose-us-about .section-title {
+    margin-bottom: var(--spacing-xs);
+}
+.sobre-page .why-choose-us-about .lead {
+    margin-bottom: var(--spacing-xxl);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* Animação escalonada para os itens na página Sobre */
+.sobre-page .why-us-revisited .why-us-item { opacity: 0; }
+.sobre-page .why-us-revisited .why-us-item:nth-child(1) { animation: fadeInSlideUp 0.6s ease-out 0.1s forwards; }
+.sobre-page .why-us-revisited .why-us-item:nth-child(2) { animation: fadeInSlideUp 0.6s ease-out 0.2s forwards; }
+.sobre-page .why-us-revisited .why-us-item:nth-child(3) { animation: fadeInSlideUp 0.6s ease-out 0.3s forwards; }
+.sobre-page .why-us-revisited .why-us-item:nth-child(4) { animation: fadeInSlideUp 0.6s ease-out 0.4s forwards; }
+
+/* --- Chamada para Ação Final na Página Sobre --- */
+/* Reutiliza .cta-contact da home.css ou crie uma variação .about-cta 
+.sobre-page .cta-contact {
+    /* Se precisar de algo diferente aqui 
+} */
+.sobre-page .cta-contact .button {
+    padding: var(--spacing-md) var(--spacing-xl); /* Botões um pouco maiores */
+    font-size: var(--font-size-lg);
+}
+
+
+/* === RESPONSIVIDADE ESPECÍFICA DA PÁGINA SOBRE === */
+@media (min-width: 769px) {
+    .sobre-page .history-section {
+        grid-template-columns: 0.8fr 1.2fr; /* Imagem | Texto */
+        gap: var(--spacing-xxl);
+    }
+    .sobre-page .history-section.reverse { /* Texto | Imagem */
+        grid-template-columns: 1.2fr 0.8fr;
+    }
+    .sobre-page .history-section.reverse .history-image {
+        order: 1; /* Imagem vai para a direita visualmente */
+    }
+    .sobre-page .history-text {
+        padding-right: var(--spacing-lg); /* Espaço extra para texto */
+    }
+    .sobre-page .history-section.reverse .history-text {
+        padding-right: 0;
+        padding-left: var(--spacing-lg);
+    }
+}
+
+@media (min-width: 992px) {
+    .sobre-page .why-us-revisited {
+        grid-template-columns: repeat(2, 1fr); /* 2 colunas em desktop */
+        max-width: 960px; /* Limita largura se 2 colunas */
+        margin-left: auto;
+        margin-right: auto;
+    }
+    /* Para 3 itens, ficaria melhor com repeat(auto-fit, ...) ou repeat(3, 1fr) */
+    /* Se fossem 3 mvv-cards, já estão responsivos com auto-fit */
+}
+
+@media (max-width: 768px) {
+    .sobre-page .history-text h3 {
+        text-align: center; /* Centraliza H3 dos blocos de história no mobile */
+    }
+    .sobre-page .history-text p {
+        text-align: justify; /* Justifica o texto para melhor leitura no mobile */
+    }
+    .sobre-page .history-timeline {
+        margin-left: -5px; /* Ajusta timeline para mobile */
+        padding-left: var(--spacing-sm);
+    }
+    .sobre-page .timeline-event::before {
+        left: -20px; /* Ajusta marcador da timeline */
+    }
+}

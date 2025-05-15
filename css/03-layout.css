@@ -1,0 +1,480 @@
+/* ========================================== */
+/* == 03 - LAYOUT: HEADER, NAV, FOOTER, BTNS == */
+/* ========================================== */
+
+/* --- Header & Navegação Principal --- */
+.main-header {
+    background-color: var(--white-bg-color);
+    box-shadow: var(--box-shadow-sm);
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color var(--transition-speed-normal) ease,
+                box-shadow var(--transition-speed-normal) ease,
+                height var(--transition-speed-normal) ease; /* Transição para altura */
+    /* A altura será definida mais pelo padding do .navbar e conteúdo */
+    /* Removida altura fixa daqui, será determinada pelo conteúdo interno */
+    display: flex;
+    align-items: center;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-top: var(--spacing-sm); /* Pode aumentar este padding */
+    padding-bottom: var(--spacing-sm); /* Pode aumentar este padding */
+                                    /* Ex: var(--spacing-md) para mais altura */
+}
+
+.logo a { /* O link <a> que envolve a imagem e o span */
+    font-size: clamp(1.5rem, 4vw, 1.8rem); /* Tamanho do texto se ainda visível */
+    font-weight: 700;
+    color: var(--primary-color); /* Cor do texto, se visível */
+    text-decoration: none;
+    display: flex; /* Para alinhar imagem e texto lado a lado */
+    align-items: center; /* Alinha verticalmente imagem e texto */
+    gap: var(--spacing-xs); /* Espaço entre a imagem do logo e o texto "Pirafrio" */
+    transition: opacity var(--transition-speed-fast) ease;
+}
+.logo a:hover,
+.logo a:focus {
+    opacity: 0.85;
+}
+
+.logo img { /* Estilo para a IMAGEM da logo */
+    max-height: 50px; /* <<<<<<< AJUSTE ESTA ALTURA CONFORME NECESSÁRIO >>>>>>>> */
+                      /* Ex: 40px, 50px, 60px. Isso vai influenciar a altura da navbar */
+    width: auto;      /* Para manter a proporção */
+    display: block;   /* Para remover qualquer espaço extra abaixo da imagem */
+}
+
+.logo span { /* Estilo para o TEXTO "Pirafrio" ao lado da logo */
+    /* Se quiser esconder o texto e deixar só a imagem, adicione: */
+    /* display: none; */
+
+    /* Se quiser que o texto apareça apenas em telas maiores: */
+    /* display: none; */ /* Esconde por padrão */
+    /* @media (min-width: 480px) { display: inline; }  Mostra em telas maiores */
+    line-height: 1; /* Ajuda no alinhamento vertical com a imagem */
+}
+
+
+.nav-links { /* Lista de links da navegação desktop */
+    display: none; /* Escondido por padrão, visível em telas maiores via media query */
+    align-items: center;
+    gap: clamp(1rem, 2.5vw, 1.5rem); /* Espaçamento entre links */
+}
+@media (min-width: 769px) { /* Mostra links desktop a partir de ~769px */
+    .nav-links {
+        display: flex;
+    }
+}
+.nav-links a {
+    color: var(--dark-text-color);
+    font-weight: 500;
+    padding: var(--spacing-sm) var(--spacing-xs); /* Área de clique dos links */
+    position: relative;
+    text-decoration: none;
+    font-size: var(--font-size-base); /* Ou --font-size-sm se preferir links menores */
+    letter-spacing: 0.2px;
+}
+.nav-links a::after { /* Efeito de sublinhado no hover/ativo */
+    content: '';
+    position: absolute;
+    bottom: calc(var(--spacing-sm) - 8px); /* Ajusta posição do sublinhado */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2.5px; /* Linha um pouco mais grossa */
+    background-color: var(--primary-color);
+    border-radius: 2px;
+    transition: width var(--transition-speed-normal) ease;
+}
+.nav-links a:hover, /* Unificado hover e focus */
+.nav-links a:focus-visible, /* Melhor usar focus-visible */
+.nav-links a.active {
+    color: var(--primary-color); /* Cor do link ao interagir/ativo */
+}
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after, /* Efeito underline também no focus-visible */
+.nav-links a.active::after {
+    width: calc(100% - var(--spacing-xs)); /* Sublinhado não encosta nas bordas do padding */
+}
+.nav-links a.active {
+    font-weight: 600; /* Destaque para página ativa */
+}
+
+/* --- Seção Hero (Principal) --- */
+.hero {
+    /* >> SUBSTITUA PELA SUA IMAGEM DE FUNDO REAL << */
+    background-image: linear-gradient(rgba(13, 71, 161, 0.75), rgba(21, 101, 192, 0.65)), url('../images/flocos\ de\ neve.jpeg');
+    background-color: var(--primary-color); /* Fallback se imagem não carregar */
+    background-size: cover;
+    background-position: center center; /* Centraliza melhor a imagem */
+    background-attachment: fixed;
+    color: var(--light-text-color);
+    text-align: center;
+    padding: clamp(100px, 18vh, 160px) var(--spacing-md); /* Usa variável para padding lateral */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza .hero-content verticalmente */
+    align-items: center;   /* Centraliza .hero-content horizontalmente (para o bloco em si) */
+    min-height: 60vh; /* Pode ajustar conforme gosto, 60vh a 70vh é comum */
+    overflow: hidden; /* Para garantir que animações não causem scrollbars */
+}
+
+.hero-content {
+    max-width: 800px; /* Largura máxima do bloco de texto */
+    padding: var(--spacing-sm); /* Pequeno padding interno se necessário */
+    
+    opacity: 0; /* COMEÇA INVISÍVEL para a animação */
+    transform: translateY(30px); /* COMEÇA UM POUCO ABAIXO para a animação */
+    animation: fadeInSlideUp 1s ease-out 0.5s forwards;
+    /* forwards: mantém o estado final da animação (opacity:1, transform: translateY(0)) */
+    /* 0.5s: delay antes da animação começar */
+
+    /* border: 1px dashed yellow; /* REMOVA QUANDO TUDO ESTIVER OK */
+}
+
+.hero-content h1 {
+    font-size: clamp(2rem, 5.5vw, 3.5rem); /* Ajustado para caber melhor em telas menores */
+    margin-bottom: var(--spacing-sm); /* Menos espaço antes do parágrafo */
+    color: var(--white-bg-color);
+    font-weight: 700;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.5); /* Sombra um pouco mais sutil */
+    line-height: 1.25;
+}
+
+.hero-content p {
+    font-size: clamp(1.05rem, 2.8vw, 1.3rem); /* Parágrafo um pouco menor */
+    margin-bottom: var(--spacing-lg); /* Espaço antes do botão */
+    max-width: 680px; /* Parágrafo mais contido */
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.95;
+    line-height: 1.6;
+}
+
+.hero-content h1 .no-break {
+    white-space: nowrap;
+    /* display: inline-block;  Pode ser necessário se nowrap não for suficiente,
+                               mas geralmente nowrap em um span inline funciona. */
+}
+
+/* Botão dentro do Hero */
+.hero .button.cta-button { /* Seletor mais específico */
+    background-color: var(--accent-color);
+    color: var(--dark-text-color) !important; /* Cor do texto do botão no Hero */
+    padding: var(--spacing-md) var(--spacing-xl); /* Padding maior para botão destaque */
+    font-size: clamp(1rem, 2.5vw, 1.15rem); /* Tamanho do texto do botão */
+    font-weight: 600;
+    box-shadow: var(--box-shadow-md); /* Sombra mais proeminente */
+    border: none; /* Garante sem borda */
+}
+.hero .button.cta-button:hover,
+.hero .button.cta-button:focus-visible { /* Usar focus-visible */
+     background-color: #ff9c1a; /* Laranja mais escuro (variação de accent) */
+     color: var(--dark-text-color) !important;
+     transform: translateY(-3px) scale(1.02); /* Efeito de elevação no hover */
+     box-shadow: var(--box-shadow-lg); /* Sombra maior no hover */
+}
+.hero .button.cta-button i {
+    font-size: 1em; /* Ícone do mesmo tamanho do texto */
+    /* margin-right já vem do .button global (gap) */
+}
+
+/* --- Navegação Mobile --- */
+.mobile-menu-button {
+    display: flex; /* Visível por padrão, escondido em desktop via media query abaixo */
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    font-size: 1.7rem; /* Tamanho do ícone hamburger */
+    color: var(--dark-text-color);
+    padding: var(--spacing-sm);
+    line-height: 1;
+    z-index: 1006; /* Acima do overlay e menu */
+    position: relative;
+    cursor: pointer;
+}
+@media (min-width: 769px) { /* Esconde botão hamburger em telas maiores */
+    .mobile-menu-button {
+        display: none;
+    }
+}
+.mobile-menu-button .icon-menu,
+.mobile-menu-button .icon-close { /* Para trocar ícones */
+    transition: transform 0.3s ease-in-out, opacity 0.2s ease-in-out;
+    display: block; /* Evita "pulos" ao trocar ícones */
+}
+.mobile-menu-button .icon-close {
+    display: none; /* Começa escondido */
+}
+.mobile-menu-button.open .icon-menu { /* Quando menu aberto, esconde hamburger */
+    transform: rotate(45deg);
+    opacity: 0;
+    display: none;
+}
+.mobile-menu-button.open .icon-close { /* Quando menu aberto, mostra X */
+    display: block;
+    transform: rotate(0deg);
+    opacity: 1;
+}
+
+.mobile-nav-links {
+    display: block; /* Ou flex para layout interno se necessário */
+    position: fixed;
+    top: 0;
+    left: -100%; /* Começa totalmente fora da tela à esquerda */
+    width: min(80vw, 300px); /* Largura do menu (80% da tela, max 300px) */
+    height: 100vh;
+    background-color: var(--white-bg-color);
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    z-index: 1001; /* Abaixo do botão de fechar mas acima do overlay */
+    overflow-y: auto; /* Scroll se links não couberem */
+    padding-top: calc(var(--header-height-approx) + var(--spacing-sm)); /* Espaço para o header não sobrepor */
+    transition: left var(--transition-speed-slow) cubic-bezier(0.23, 1, 0.32, 1); /* Efeito ease-out-expo */
+}
+.mobile-nav-links.active {
+    left: 0; /* Menu desliza para dentro */
+}
+.mobile-nav-links ul {
+    margin: 0;
+    padding: var(--spacing-md) 0; /* Padding vertical interno */
+}
+.mobile-nav-links li {
+    text-align: left;
+}
+.mobile-nav-links a {
+    display: block;
+    padding: var(--spacing-md) var(--spacing-lg);
+    color: var(--dark-text-color);
+    text-decoration: none;
+    font-size: var(--font-size-lg); /* Links maiores no mobile */
+    font-weight: 500;
+    border-bottom: 1px solid var(--light-bg-color);
+    transition: background-color var(--transition-speed-normal) ease, color var(--transition-speed-normal) ease;
+}
+.mobile-nav-links li:first-child a {
+    border-top: 1px solid var(--light-bg-color); /* Borda superior no primeiro item */
+}
+.mobile-nav-links li:last-child a {
+    border-bottom: none; /* Opcional remover a última borda */
+}
+.mobile-nav-links a:hover,
+.mobile-nav-links a:focus-visible, /* Usar focus-visible */
+.mobile-nav-links a.active {
+    background-color: var(--primary-color);
+    color: var(--white-bg-color);
+    font-weight: 600;
+}
+
+/* Overlay para escurecer o fundo quando o menu mobile está aberto */
+.body-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Mais escuro */
+    z-index: 100; /* Abaixo do menu, acima do conteúdo da página */
+    opacity: 0;
+    transition: opacity var(--transition-speed-slow) ease;
+}
+.body-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+
+/* --- Botões Globais --- */
+.button,
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs); /* Espaço entre ícone e texto do botão */
+    background-color: var(--primary-color);
+    color: var(--light-text-color) !important; /* Garante cor do texto */
+    padding: var(--spacing-sm) var(--spacing-lg); /* Padding Padrão */
+    border: 2px solid var(--primary-color); /* Borda na mesma cor do fundo */
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap; /* Impede que o texto do botão quebre linha */
+    transition: background-color var(--transition-speed-normal) ease,
+                transform var(--transition-speed-fast) ease, /* Transform mais rápido */
+                box-shadow var(--transition-speed-normal) ease,
+                border-color var(--transition-speed-normal) ease,
+                color var(--transition-speed-normal) ease;
+    box-shadow: var(--box-shadow-sm);
+    line-height: 1.5;
+    font-size: var(--font-size-base);
+}
+.button:hover,
+.cta-button:hover,
+.button:focus-visible, /* Foco para acessibilidade */
+.cta-button:focus-visible {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: var(--light-text-color) !important;
+    transform: translateY(-2px); /* Leve elevação */
+    box-shadow: var(--box-shadow-md);
+    text-decoration: none;
+    opacity: 1; /* Garante opacidade no hover se for link */
+}
+.button:active, /* Quando o botão está sendo pressionado */
+.cta-button:active {
+    transform: translateY(0px); /* Volta para posição original */
+    box-shadow: var(--box-shadow-sm);
+}
+.button i,
+.cta-button i {
+    line-height: 1;
+    font-size: 0.95em; /* Ícone ligeiramente menor que o texto */
+}
+
+/* Botão Estilo Secundário/Outline */
+.button-outline {
+    background-color: transparent;
+    border-color: var(--primary-color);
+    color: var(--primary-color) !important;
+}
+.button-outline:hover,
+.button-outline:focus-visible {
+    background-color: var(--primary-color);
+    color: var(--white-bg-color) !important;
+}
+
+/* Botão CTA WhatsApp */
+.cta-button-whatsapp {
+    background-color: #25D366;
+    border-color: #25D366;
+}
+.cta-button-whatsapp:hover,
+.cta-button-whatsapp:focus-visible {
+    background-color: #1DAE54;
+    border-color: #1DAE54;
+}
+
+/* Modificadores de Tamanho de Botão (Opcional) */
+.button-sm {
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: var(--font-size-sm);
+}
+.button-lg {
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: var(--font-size-lg);
+}
+
+
+/* --- Rodapé (Footer) --- */
+.main-footer {
+    background-color: var(--footer-bg-color);
+    color: var(--light-text-color);
+    padding-top: clamp(50px, 8vw, var(--spacing-xxxl)); /* Mais padding superior */
+    padding-bottom: clamp(30px, 5vw, var(--spacing-xl)); /* Padding inferior */
+}
+.footer-content { /* Usa .container que tem max-width e padding lateral */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Ajuste no minmax */
+    gap: var(--spacing-xl) var(--spacing-lg); /* gap-row gap-column */
+}
+.footer-section {
+    margin-bottom: var(--spacing-md);
+}
+.footer-section h3 {
+    font-size: 1.25rem; /* Títulos do footer pouco maiores */
+    margin-bottom: var(--spacing-lg);
+    color: var(--white-bg-color);
+    font-weight: 600;
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--accent-color);
+    display: inline-block;
+}
+.footer-section p,
+.footer-section ul li {
+    margin-bottom: var(--spacing-sm); /* Menos espaço entre itens de texto/lista */
+    font-size: 0.95rem;
+    color: #b0bec5;
+    line-height: 1.8;
+}
+.footer-section ul {
+    margin-top: calc(var(--spacing-lg) * -0.25); /* Ajuste fino para alinhar com parágrafos se houver */
+}
+.footer-section a {
+    color: var(--light-text-color);
+    text-decoration: none;
+}
+.footer-section a:hover,
+.footer-section a:focus-visible {
+    color: var(--accent-color);
+    text-decoration: underline;
+    opacity: 1;
+}
+.footer-section i.fa-fw { /* Ícones com largura fixa (Font Awesome .fa-fw) */
+    width: 1.28571429em; /* Padrão Font Awesome */
+    text-align: center;
+    margin-right: var(--spacing-xs);
+    color: var(--accent-color);
+}
+/* Se não usar .fa-fw, usar um estilo mais genérico para ícones no footer */
+.footer-section > p > i, .footer-section li > i {
+     margin-right: var(--spacing-sm);
+     color: var(--accent-color);
+     width: 20px; /* Para alinhar texto */
+     text-align: center;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Linha separadora mais sutil */
+    font-size: var(--font-size-sm);
+    color: #90a4ae;
+}
+.footer-bottom p {
+    margin-bottom: var(--spacing-xxs);
+}
+.footer-bottom a {
+    color: var(--accent-color);
+    font-weight: 500;
+}
+.footer-bottom a:hover,
+.footer-bottom a:focus-visible {
+    color: var(--white-bg-color);
+    text-decoration: underline;
+}
+.social-icons {
+    margin-top: var(--spacing-md);
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: flex-start; /* Padrão */
+}
+/* Se quiser centralizar os ícones na coluna do logo no footer */
+.footer-section.logo-footer .social-icons {
+    justify-content: center;
+}
+.social-icons a {
+    color: var(--light-text-color);
+    font-size: 1.6rem; /* Ícones sociais maiores */
+    transition: color var(--transition-speed-normal) ease, transform var(--transition-speed-fast) ease;
+    display: inline-block;
+}
+.social-icons a:hover,
+.social-icons a:focus-visible {
+    color: var(--accent-color);
+    transform: scale(1.2) translateY(-2px); /* Efeito mais pronunciado */
+    opacity: 1;
+    text-decoration: none;
+}

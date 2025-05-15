@@ -1,0 +1,183 @@
+/* ============================================ */
+/* == 99 - GLOBAL RESPONSIVE MEDIA QUERIES == */
+/* ============================================ */
+
+/* === Telas Médias (Tablets - aprox. 769px a 992px) === */
+@media (max-width: 992px) {
+    h1 { font-size: clamp(1.8rem, 5vw, 2.4rem); }
+    h2 { font-size: clamp(1.6rem, 4vw, 2rem); }
+    .section-title { font-size: clamp(1.6rem, 4.5vw, 2.1rem); }
+
+    .sobre-page .history-section,
+    .sobre-page .history-section.reverse { grid-template-columns: 1fr; }
+    .sobre-page .history-section .history-image,
+    .sobre-page .history-section.reverse .history-image { order: 0; margin-bottom: var(--spacing-lg); max-height: 320px; }
+    .sobre-page .history-text { padding: 0; }
+
+    .contato-page .contact-grid { grid-template-columns: 1fr; gap: var(--spacing-xl); }
+    .contato-page .contact-info-container { margin-top: 0; border-left: none; border-top: 4px solid var(--primary-color); }
+
+    /* Layout da Página de Produto Detalhe em Tablet */
+    .product-detail-page .product-detail-grid { grid-template-columns: 1fr; }
+    .product-detail-page .product-image-column {
+        position: static; max-width: 420px; /* Imagem um pouco menor */
+        margin: 0 auto var(--spacing-xl) auto; padding-right: 0;
+        overflow-y: visible; max-height: none;
+    }
+    .product-detail-page .product-info-column h1 { font-size: 1.7rem; }
+
+
+    /* Mantém sidebar de filtros no tablet (pode mudar para empilhar se preferir) */
+    .produtos-page .filters-and-products-layout {
+        /* grid-template-columns: var(--filter-sidebar-width, 260px) 1fr; */
+        /* Para empilhar no tablet também, descomente a linha abaixo e comente a de cima: */
+        grid-template-columns: 1fr;
+    }
+    .produtos-page .filters { /* Se empilhado no tablet */
+        /* position: static; width: 100%; max-height: none; margin-bottom: var(--spacing-xl); top: auto; */
+        /* Ajustes específicos para o sticky no tablet se ele permanecer lateral */
+        top: calc(var(--header-height-approx) + var(--spacing-sm));
+        max-height: calc(100vh - var(--header-height-approx) - var(--spacing-sm) - var(--spacing-lg) - 10px);
+    }
+     /* Se os filtros forem empilhados em tablet, o botão mobile de toggle já deveria aparecer.
+       Para isso, a media query abaixo (max-width: 768px) precisaria ser max-width: 992px
+       para .filter-controls-area-mobile, .produtos-page aside.filters etc.
+       Vamos manter 768px por enquanto para a mudança drástica para painel.
+     */
+}
+
+
+/* === Telas Pequenas (Celulares - 768px para baixo) === */
+@media (max-width: 768px) {
+    .section-padding { padding-top: clamp(35px, 6vw, 50px); padding-bottom: clamp(35px, 6vw, 50px); }
+    .section-title { font-size: clamp(1.4rem, 4.5vw, 1.9rem); }
+    h1 { font-size: clamp(1.6rem, 5vw, 2.1rem); }
+    h2 { font-size: clamp(1.4rem, 4vw, 1.9rem); }
+
+    /* Visibilidade da Navegação Mobile */
+    .main-header .nav-links { display: none !important; }
+    .main-header .mobile-menu-button { display: flex; }
+    .main-header { height: auto; min-height: var(--header-height-approx); }
+    .navbar { padding-top: var(--spacing-xs); padding-bottom: var(--spacing-xs); }
+
+    /* --- COMPORTAMENTO DOS FILTROS NO MOBILE --- */
+    .produtos-page .filters-and-products-layout {
+        display: block; /* Tira o grid, elementos empilham */
+    }
+    .produtos-page .filter-controls-area-mobile { /* Botão "Filtrar Produtos" */
+        display: block; /* Torna visível */
+        margin-bottom: var(--spacing-lg);
+    }
+    .produtos-page .filter-controls-area-mobile .filter-toggle-button-mobile {
+         width: 100%;
+        font-size: 0.95rem;
+        justify-content: center;
+        border-color: var(--border-color-darker);
+    }
+    .produtos-page .filter-toggle-button-mobile .arrow-icon {
+        margin-left: var(--spacing-xs);
+        transition: transform 0.3s ease;
+    }
+    .produtos-page .filter-toggle-button-mobile[aria-expanded="true"] .arrow-icon {
+        transform: rotate(180deg); /* Seta vira para cima quando aberto */
+    }
+
+    /* Painel de Filtros no Mobile */
+    .produtos-page aside.filters {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        width: min(90vw, 320px); /* Largura do painel */
+        height: 100vh;
+        background-color: var(--white-bg-color);
+        z-index: 1015; /* Acima de tudo, até do overlay */
+        overflow-y: auto;
+        transition: left 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+        padding: 0;
+        box-shadow: 3px 0 15px rgba(0,0,0,0.15);
+        border-radius: 0;
+        border: none;
+        max-height: 100vh; /* Garante que não ultrapasse a tela */
+        top: 0 !important; /* Sobrescreve o top do sticky */
+    }
+    .produtos-page aside.filters.open { /* Quando painel está aberto */
+        left: 0;
+    }
+    .produtos-page .filters .filters-header-desktop { /* Esconde header desktop */
+        display: none;
+    }
+    .produtos-page .filters .filters-header-mobile { /* Mostra header mobile */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--spacing-md) var(--spacing-lg);
+        background-color: var(--primary-color);
+        color: var(--white-bg-color);
+        position: sticky; /* Para o header do painel ficar fixo no topo DO PAINEL */
+        top: 0;
+        z-index: 1;
+    }
+    .produtos-page .filters .filters-header-mobile h2 {
+        font-size: 1.1rem;
+        color: inherit;
+        margin-bottom: 0;
+        border-bottom: none;
+        padding: 0;
+    }
+    .produtos-page .filters .filter-close-button {
+        background: none; border: none; color: var(--white-bg-color);
+        font-size: 1.3rem; padding: var(--spacing-xxs); line-height: 1; opacity: 0.9;
+    }
+    .produtos-page .filters .filter-close-button:hover { opacity: 1; }
+    .produtos-page .filters form#filter-form {
+        padding: var(--spacing-lg);
+    }
+    .produtos-page .filters .filter-apply-btn-action { /* Botão Aplicar DENTRO do painel mobile */
+        display: block; /* Mostra o botão aplicar */
+        margin: 0 var(--spacing-lg) var(--spacing-lg) var(--spacing-lg);
+    }
+    .body-overlay.active.filters-overlay-active { /* Classe para o overlay específico dos filtros */
+        display: block;
+        opacity: 1;
+        z-index: 1004; /* Abaixo do painel de filtros */
+    }
+
+    /* Calculadora de BTUs */
+    .produtos-page .btu-calculator-form-layout { grid-template-columns: 1fr; }
+    .produtos-page .calculator-button-group .button { flex-basis: 100%; }
+
+    /* Footer Mobile */
+    .footer-content { grid-template-columns: 1fr; text-align: center; }
+    .footer-section h3 { display: block; text-align: center; }
+    .footer-section p, .footer-section ul li { text-align: center; padding-left: 0; }
+    .footer-section i.fa-fw, .footer-section > p > i, .footer-section li > i { display: block; margin: 0 auto var(--spacing-xxs) auto; width: auto; }
+    .social-icons { justify-content: center; }
+
+    /* Outros empilhamentos gerais de 2 colunas para 1 coluna */
+    .sobre-page .why-us-revisited { grid-template-columns: 1fr; }
+}
+
+
+/* === Telas Muito Pequenas (Celulares Menores - abaixo de 480px) === */
+@media (max-width: 480px) {
+    html { font-size: 93.75%; } /* 15px base */
+    .container { padding-left: var(--spacing-sm); padding-right: var(--spacing-sm); }
+    .section-title { font-size: clamp(1.3rem, 5vw, 1.6rem); }
+    .page-title h1 { font-size: clamp(1.4rem, 5.5vw, 1.8rem); }
+    .hero-content h1 { font-size: clamp(1.6rem, 6.5vw, 2.2rem); }
+    .hero-content p { font-size: 0.9rem; }
+
+    .produtos-page .filters.open { /* Em telas muito pequenas, talvez painel menor */
+        width: min(90vw, 280px);
+    }
+
+    .product-detail-page .product-info-column h1 { font-size: 1.4rem; }
+    .product-detail-page .product-price-details { font-size: 1.4rem; }
+    .product-detail-page .cta-buttons-product .button { flex-basis: 100%; font-size: 0.85rem;}
+    .product-detail-page .product-tab-nav button { font-size: 0.9rem; }
+    .product-detail-page .specs-table th, .product-detail-page .specs-table td { font-size: 0.85rem; padding: 8px;}
+
+    .sobre-page .mvv-card h3 { font-size: 1.3rem; }
+    .sobre-page .mvv-card p, .sobre-page .mvv-card ul.valores-lista { font-size: 0.9rem;}
+    .sobre-page .founder-section blockquote {font-size: 1rem;}
+}

@@ -1,0 +1,246 @@
+/* ======================================== */
+/* == CSS ESPECÍFICO: PÁGINA DE CONTATO  == */
+/* ======================================== */
+
+/* Adicionar <body class="contato-page"> ao contato.html para especificidade */
+
+/* --- Hero/Título da Página de Contato --- */
+/* O estilo base de .page-title já está em 04-components.css */
+.contato-page .page-title {
+    /* padding-bottom: clamp(40px, 7vw, var(--spacing-xl)); (Já ok do 04-components) */
+     background-image: linear-gradient(to top, var(--light-bg-color) 80%, rgba(var(--primary-color-rgb), 0.05) 100%);  /* Gradiente sutil no topo */
+}
+.contato-page .page-title p {
+    max-width: 800px; /* Para o lead text ser mais largo se necessário */
+}
+
+/* --- Layout Principal da Página de Contato (Grid) --- */
+.contato-page .contact-grid {
+    display: grid;
+    /* Coluna do formulário (1.1fr) ligeiramente maior que a de informações (1fr) */
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: clamp(var(--spacing-lg), 5vw, var(--spacing-xxl)); /* Gap responsivo */
+    align-items: flex-start;
+}
+
+/* --- Container do Formulário de Contato --- */
+.contato-page .contact-form-container {
+    background-color: var(--white-bg-color);  /* Opcional se quiser um fundo diferente do body */
+    padding: var(--spacing-xl);  /* Opcional se precisar de padding extra */
+    border-radius: var(--border-radius-lg);  /* Opcional */
+    box-shadow: var(--box-shadow-md);  /* Opcional */
+}
+.contato-page .contact-form-container h2 { /* Título "Envie sua Mensagem" */
+    font-size: clamp(1.5rem, 4vw, 1.9rem); /* Tamanho do título da seção do form */
+    margin-bottom: var(--spacing-xs);
+    color: var(--primary-color);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+.contato-page .contact-form-container h2 i {
+    font-size: 1.2em; /* Ícone do título do form */
+    opacity: 0.8;
+}
+.contato-page .contact-form-container p.intro-form-text { /* Parágrafo introdutório */
+    margin-bottom: var(--spacing-lg); /* Mais espaço antes do form */
+    color: var(--medium-text-color);
+    font-size: 1rem; /* Tamanho padrão do texto */
+    line-height: 1.7;
+}
+
+/* Estilos do Formulário (#contact-form) */
+.contato-page #contact-form {
+    width: 100%;
+}
+.contato-page #contact-form .form-group {
+    margin-bottom: var(--spacing-lg);
+    position: relative;
+}
+.contato-page #contact-form .form-group label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-weight: 500; /* Labels um pouco mais leves */
+    font-size: 0.9rem;
+    color: var(--dark-text-color);
+}
+/* Estilo .required-asterisk já no 02-base.css */
+
+.contato-page #contact-form .form-group input[type="text"],
+.contato-page #contact-form .form-group input[type="email"],
+.contato-page #contact-form .form-group input[type="tel"],
+.contato-page #contact-form .form-group textarea {
+    width: 100%;
+    padding: calc(var(--spacing-sm) + 2px) var(--spacing-md); /* Padding sutilmente maior */
+    border: 1px solid var(--border-color-input);
+    border-radius: var(--border-radius); /* Borda mais arredondada nos campos */
+    font-size: 0.95rem;
+    background-color: var(--white-bg-color);
+    color: var(--dark-text-color);
+    box-shadow: none; /* Remove sombra interna se havia no base */
+    transition: border-color var(--transition-speed-normal) ease,
+                box-shadow var(--transition-speed-normal) ease;
+}
+.contato-page #contact-form .form-group input::placeholder,
+.contato-page #contact-form .form-group textarea::placeholder {
+    color: var(--muted-text-color);
+    opacity: 0.7; /* Placeholder mais sutil */
+}
+.contato-page #contact-form .form-group input:focus,
+.contato-page #contact-form .form-group textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.2); /* Sombra de foco mais sutil */
+    /* :focus-visible global já trata o outline, mas este box-shadow é um adicional */
+}
+/* Estilos de erro (.input-error, .error-message) herdados de 02-base.css ou podem ser refinados aqui */
+.contato-page #contact-form .form-group input.input-error,
+.contato-page #contact-form .form-group textarea.input-error {
+    border-color: var(--error-color);
+    background-color: #fff7f7; /* Fundo de erro bem claro */
+}
+.contato-page #contact-form .form-group .error-message {
+    font-size: var(--font-size-sm); /* Garante tamanho consistente */
+}
+
+.contato-page #contact-form .form-group textarea {
+    resize: vertical;
+    min-height: 140px; /* Altura ajustada */
+    line-height: 1.6;
+}
+.contato-page #contact-form button[type="submit"] {
+    width: 100%; /* Botão principal full-width no formulário */
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: 1rem; /* Botão com texto normal */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    /* Estilo de .button herdado do 03-layout.css */
+}
+.contato-page #contact-form button[type="submit"]:disabled {
+    background-color: var(--medium-text-color); /* Fundo diferente para desabilitado */
+    border-color: var(--medium-text-color);
+    opacity: 0.7;
+}
+
+/* Mensagem de Status do Formulário */
+.contato-page #form-status {
+    margin-top: var(--spacing-md); /* Menos margem */
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-sm); /* Raio menor */
+    font-size: 0.9rem; /* Texto da mensagem menor */
+    /* Cores herdadas do 02-base.css ou 03-layout.css para .success, .error, .info */
+}
+
+/* --- Container de Informações de Contato (Coluna da Direita) --- */
+.contato-page .contact-info-container {
+    background-color: var(--light-bg-color); /* Mesmo fundo do page-title para integrar */
+    padding: clamp(var(--spacing-lg), 4vw, var(--spacing-xl));
+    border-radius: var(--border-radius-lg); /* Borda mais arredondada */
+    /* box-shadow: var(--box-shadow-sm); */ /* Sem sombra aqui, já tem no form */
+}
+.contato-page .contact-info-container h2 { /* "Outros Canais..." */
+    font-size: clamp(1.5rem, 4vw, 1.9rem);
+    margin-bottom: var(--spacing-lg);
+    color: var(--primary-color);
+}
+.contato-page .contact-info-item {
+    margin-bottom: var(--spacing-lg); /* Espaçamento entre itens ajustado */
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--border-color); /* Linha mais clara */
+    gap: var(--spacing-md); /* Espaço entre ícone e texto/título do item */
+}
+.contato-page .contact-info-item:last-of-type {
+    margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+.contato-page .contact-info-item .item-icon { /* Wrapper para o ícone */
+    flex-shrink: 0;
+    width: 40px; /* Largura do container do ícone */
+    height: 40px;
+    background-color: var(--primary-color);
+    color: var(--white-bg-color);
+    border-radius: 50%; /* Ícone circular */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem; /* Tamanho do ícone FA */
+    box-shadow: var(--box-shadow-sm);
+    margin-top: 3px; /* Leve ajuste vertical */
+}
+.contato-page .contact-info-item .item-content { /* Wrapper para título e texto */
+    flex-grow: 1;
+}
+.contato-page .contact-info-item h3 { /* Título do item (Telefone, Email) */
+    font-size: 1.1rem; /* Menor e mais leve */
+    margin: 0 0 var(--spacing-xxs) 0; /* Sem ícone aqui, ícone agora é separado */
+    color: var(--dark-text-color);
+    font-weight: 600;
+}
+.contato-page .contact-info-item p {
+    margin-bottom: var(--spacing-xxs);
+    padding-left: 0; /* Remove padding pois ícone está separado */
+    color: var(--medium-text-color);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+.contato-page .contact-info-item p:last-child { margin-bottom: 0; }
+.contato-page .contact-info-item a {
+    color: var(--primary-color); /* Link da informação */
+    font-weight: 500;
+    transition: color var(--transition-speed-fast);
+}
+.contato-page .contact-info-item a:hover,
+.contato-page .contact-info-item a:focus-visible {
+    color: var(--secondary-color);
+    text-decoration: none; /* Remove sublinhado no hover, cor já destaca */
+}
+.contato-page .contact-info-item p.contact-note {
+    font-size: var(--font-size-sm);
+    color: var(--muted-text-color);
+    font-style: italic;
+    margin-top: var(--spacing-xxs);
+}
+
+.contato-page .map-container-full-width {
+    margin-top: var(--spacing-xl); /* Espaço acima do mapa */
+    border-radius: var(--border-radius); /* Raio igual aos outros elementos */
+    overflow: hidden;
+    line-height: 0;
+    box-shadow: var(--box-shadow-md); /* Sombra destacada */
+    border: 1px solid var(--border-color); /* Borda sutil */
+}
+.contato-page .map-container-full-width iframe {
+    display: block;
+    width: 100%;
+    border: none;
+    /* A altura está definida inline no iframe no HTML (ex: height="350") */
+    /* Se quiser controlar por aqui e manter proporção: */
+    /* position: relative; padding-top: 56.25%; (16:9) */
+}
+
+/* === RESPONSIVIDADE ESPECÍFICA DA PÁGINA DE CONTATO === */
+/* A media query para empilhar .contact-grid já está no 99-responsive.css */
+@media (max-width: 992px) {
+    .contato-page .contact-grid {
+        gap: var(--spacing-xl); /* Reduz gap em tablet quando empilhado */
+    }
+    .contato-page .contact-info-container {
+        /* Ajustes quando empilhado se necessário */
+        /* border-top-width: 4px; */ /* Menor borda no topo */
+        padding: var(--spacing-lg);
+    }
+}
+@media (max-width: 480px) {
+    .contato-page #contact-form button[type="submit"] {
+        font-size: 0.95rem; /* Botão do form um pouco menor em mobile */
+    }
+    .contato-page .contact-info-item {
+        gap: var(--spacing-sm); /* Menos espaço entre ícone e texto no item de info */
+    }
+    .contato-page .contact-info-item .item-icon {
+        width: 36px; height: 36px; font-size: 1rem; /* Ícone do item de info menor */
+    }
+    .contato-page .contact-info-item h3 { font-size: 1rem; }
+    .contato-page .contact-info-item p { font-size: 0.9rem; }
+}

@@ -1,0 +1,129 @@
+/* ===================================== */
+/* == CSS ESPECÍFICO: PÁGINA HOME ==    */
+/* ===================================== */
+
+/* Seletor de corpo para aplicar estilos apenas à página home, se necessário.
+   No index.html, o body teria: <body class="home-page"> */
+/* .home-page { } */
+
+
+/* --- Seção Hero Específica da Home --- */
+/* O estilo base de .hero está em 03-layout.css.
+   Aqui podem entrar ajustes FINOS ou elementos ÚNICOS do hero da home.
+*/ /*
+.home-page .hero {
+    /* Exemplo: Se o hero da home tivesse um min-height diferente */
+    /* min-height: 70vh; */
+    /* Exemplo: Se o padding fosse diferente */
+    /* padding: clamp(120px, 20vh, 200px) var(--spacing-md); 
+} /*
+.home-page .hero-content p { /* Se o parágrafo do hero da home fosse diferente 
+     font-size: clamp(1.15rem, 3.2vw, 1.5rem); 
+} /*
+.home-page .hero .cta-button {  Se o botão principal do hero da home fosse diferente */
+    /* padding: var(--spacing-md) var(--spacing-xl); */
+    /* font-size: var(--font-size-lg); 
+} */
+.home-page .hero .cta-button i {
+    margin-right: var(--spacing-xs); /* Pequeno espaço ícone/texto no botão do Hero */
+}
+
+/* --- Seção Features (Diferenciais) na Home --- */
+/* Os estilos de .features-grid e .feature-item já estão em 04-components.css.
+   Se a home tivesse um título de seção DIFERENTE para os features, por exemplo: 
+.home-page .features .section-title { 
+    /* margin-bottom: var(--spacing-xl); */
+    /* color: var(--secondary-color); 
+} */
+
+/* --- Seção Produtos em Destaque na Home (.featured-products) --- 
+.featured-products {
+     O estilo .bg-light já está global. */
+    /* Estilos de .product-grid e .product-card estão em 04-components.css 
+} */
+.featured-products .section-title {
+    margin-bottom: var(--spacing-xl); /* Mais espaço abaixo do título aqui */
+}
+/* Animação escalonada para cards na home (já incluído em 04-components.css de forma mais genérica,
+   mas pode ser específico aqui se necessário) */
+/* .featured-products .product-grid .product-card:nth-child(1) { animation-delay: 0.1s; }
+.featured-products .product-grid .product-card:nth-child(2) { animation-delay: 0.2s; }
+.featured-products .product-grid .product-card:nth-child(3) { animation-delay: 0.3s; }
+.featured-products .product-grid .product-card:nth-child(4) { animation-delay: 0.4s; } */
+
+.featured-products .text-center > .cta-button { /* Botão "Ver Catálogo Completo" */
+    margin-top: var(--spacing-xl); /* Mais espaço acima */
+    font-size: var(--font-size-lg); /* Botão maior */
+    padding: var(--spacing-md) var(--spacing-xl);
+}
+
+
+/* --- Seção CTA de Contato na Home (.cta-contact) --- */
+.home-page .cta-contact {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    padding-top: clamp(50px, 8vw, var(--spacing-xxl)); /* Padding customizado */
+    padding-bottom: clamp(50px, 8vw, var(--spacing-xxl));
+}
+.home-page .cta-contact .section-title {
+    color: var(--white-bg-color);
+    margin-bottom: var(--spacing-sm);
+}
+.home-page .cta-contact p { /* Texto da CTA */
+    color: rgba(255, 255, 255, 0.9); /* Levemente transparente */
+    margin-bottom: var(--spacing-xl);
+    max-width: 750px; /* Limita largura */
+    margin-left: auto;
+    margin-right: auto;
+    font-size: var(--font-size-lg); /* Texto maior */
+}
+.home-page .cta-contact .button-group {
+    display: flex;
+    flex-wrap: wrap; /* Quebra em telas menores */
+    justify-content: center;
+    gap: var(--spacing-md);
+}
+.home-page .cta-contact .button {
+    /* Estilos de .button e .cta-button-whatsapp já em 03-layout.css */
+    min-width: 220px; /* Largura mínima para os botões da CTA */
+    font-size: var(--font-size-base); /* Tamanho de fonte ajustado */
+}
+.home-page .cta-contact .button.cta-contact-main {
+    background-color: var(--white-bg-color);
+    color: var(--primary-color) !important;
+    border-color: var(--white-bg-color);
+}
+.home-page .cta-contact .button.cta-contact-main:hover,
+.home-page .cta-contact .button.cta-contact-main:focus-visible {
+    background-color: var(--light-bg-color);
+    color: var(--primary-color) !important;
+    border-color: var(--light-bg-color);
+} /*
+.home-page .cta-contact .cta-button-whatsapp {
+    /* Estilo já definido */
+    /* Exemplo: border: 2px solid var(--light-text-color); (se quisesse borda) 
+} */
+.home-page .cta-contact .button[href^="tel:"] { /* Estilo para botão de ligar */
+    background-color: var(--medium-text-color); /* Um cinza escuro */
+    border-color: var(--medium-text-color);
+}
+.home-page .cta-contact .button[href^="tel:"]:hover,
+.home-page .cta-contact .button[href^="tel:"]:focus-visible {
+    background-color: var(--dark-text-color);
+    border-color: var(--dark-text-color);
+}
+
+/* === RESPONSIVIDADE ESPECÍFICA DA HOME === */
+@media (max-width: 768px) {
+    .home-page .hero {
+        min-height: 60vh; /* Hero um pouco menor no mobile */
+    }
+    .home-page .cta-contact p {
+        font-size: var(--font-size-base); /* Texto da CTA menor no mobile */
+    }
+    .home-page .cta-contact .button-group .button {
+        flex-basis: 100%; /* Botões da CTA um abaixo do outro no mobile */
+        margin: 5px 0 !important; /* Sobrescreve margin-right de botão geral, se houver */
+        min-width: 0; /* Reseta min-width */
+    }
+}

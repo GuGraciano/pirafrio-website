@@ -1,0 +1,89 @@
+/* ============================ */
+/* == 01 - CSS VARIABLES (ROOT) == */
+/* ============================ */
+
+:root {
+    /* === Paleta de Cores Principal === */
+    --primary-color: #0d47a1;
+    --primary-color-rgb: 13, 71, 161; /* Para usar em rgba() */
+    --secondary-color: #1565c0;
+    --accent-color: #ffab40;
+
+    /* === Fundos === */
+    --light-bg-color: #f1f3f5;
+    --white-bg-color: #ffffff;
+    --footer-bg-color: #1e2a3a;
+    --calculator-form-bg: #f8f9fa; /* Fundo um pouco diferente para o form da calculadora */
+
+    /* === Textos === */
+    --dark-text-color: #212529;
+    --medium-text-color: #55575a;
+    --light-text-color: #f8f9fa;
+    --muted-text-color: #757575; /* Para textos de ajuda, placeholders */
+
+    /* === Bordas === */
+    --border-color: #dee2e6;
+    --border-color-darker: #ced4da;
+    --border-color-input: #bcccdc; /* Borda para inputs um pouco mais definida */
+
+    /* === Cores de Feedback (Alertas, Mensagens) === */
+    --success-color: #198754;
+    --error-color: #dc3545;
+    --info-color: #0dcaf0;
+    --warning-color: #ffc107;
+
+    --success-bg-color: #d1e7dd;
+    --error-bg-color: #f8d7da;
+    --info-bg-color: #cff4fc;
+    --warning-bg-color: #fff3cd;
+
+    --success-text-color: #0f5132;
+    --error-text-color: #842029;
+    --info-text-color: #055160;
+    --warning-text-color: #664d03;
+
+    /* === Tipografia === */
+    --font-family-sans-serif: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+    --font-size-base: 1rem;       /* (16px) */
+    --font-size-sm: 0.875rem;   /* (14px) */
+    --font-size-lg: 1.125rem;    /* (18px) */
+    --font-size-xl: 1.25rem;    /* (20px) */
+
+    --line-height-base: 1.7;
+    --line-height-sm: 1.5;
+    --line-height-lg: 1.8;
+    --line-height-headings: 1.3; /* Para títulos */
+
+    /* === Espaçamentos e Medidas === */
+    --spacing-xxs: 0.25rem;  /* 4px */
+    --spacing-xs: 0.5rem;   /* 8px */
+    --spacing-sm: 0.75rem;  /* 12px */
+    --spacing-md: 1rem;     /* 16px */
+    --spacing-lg: 1.5rem;   /* 24px */
+    --spacing-xl: 2rem;     /* 32px */
+    --spacing-xxl: 3rem;    /* 48px */
+    --spacing-xxxl: 4rem;   /* 64px */
+
+
+    /* === Componentes e UI === */
+    --border-radius-sm: 0.25rem;
+    --border-radius: 0.5rem;    /* Antigo var(--border-radius) */
+    --border-radius-lg: 0.75rem;
+    --border-radius-pill: 50rem;
+
+    --box-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --box-shadow-md: 0 5px 15px rgba(0, 0, 0, 0.1); /* Antigo var(--box-shadow-light) / medium */
+    --box-shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
+    --box-shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+
+    --transition-speed-fast: 0.15s;
+    --transition-speed-normal: 0.3s; /* Antigo var(--transition-speed) */
+    --transition-speed-slow: 0.5s;
+
+    /* === Outros === */
+    --container-max-width: 1280px; /* Aumentado um pouco */
+    --header-height-approx: 70px; /* Aproximado, depende do conteúdo do header */
+    --filter-sidebar-width: 280px; /* Largura da sidebar de filtros */
+}

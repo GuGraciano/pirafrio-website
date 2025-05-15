@@ -1,0 +1,1705 @@
+/* =============================================== */
+/* == PIRAFRIO - CSS COMPLETO E ATUALIZADO ==     */
+/* =============================================== */
+
+/* ===== Reset Básico e Configurações Globais ===== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Paleta de Cores Principal */
+    --primary-color: #0d47a1;   /* Azul Escuro Principal (IBM Blue) */
+    --secondary-color: #1565c0; /* Azul Intermediário (Hover/Destaque) */
+    --accent-color: #ffab40;   /* Laranja/Âmbar para Destaques (CTAs) */
+    --light-bg-color: #f1f3f5; /* Fundo Cinza Muito Claro (Off-white) */
+    --white-bg-color: #ffffff;   /* Fundo Branco Puro */
+    --dark-text-color: #212529;  /* Texto Escuro Principal (Quase Preto) */
+    --medium-text-color: #55575a;   /* Texto Cinza Médio (Descrições, secundário) */
+    --light-text-color: #f8f9fa; /* Texto Claro (em Fundos Escuros) */
+    --border-color: #dee2e6;   /* Cor de Borda Padrão (Cinza Claro) */
+    --footer-bg-color: #1e2a3a; /* Fundo Escuro do Footer (Azul-acinzentado escuro) */
+
+    /* Cores de Feedback */
+    --success-color: #198754;  /* Verde Sucesso */
+    --error-color: #dc3545;    /* Vermelho Erro */
+    --info-color: #0dcaf0;     /* Azul Claro Informação */
+    --warning-color: #ffc107;  /* Amarelo Aviso */
+
+    /* Configurações Gerais */
+    --transition-speed: 0.3s;
+    --border-radius: 8px; /* Raio de borda padrão */
+    --box-shadow-light: 0 4px 12px rgba(0, 0, 0, 0.06); /* Sombra leve */
+    --box-shadow-medium: 0 6px 18px rgba(0, 0, 0, 0.1); /* Sombra média (hover) */
+}
+
+html {
+    scroll-behavior: smooth; /* Rolagem suave para links internos */
+    font-size: 100%; /* Base para REM */
+}
+
+body {
+    font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Preferência por Roboto */
+    line-height: 1.7; /* Melhor para leitura */
+    color: var(--dark-text-color);
+    background-color: var(--white-bg-color);
+    overflow-x: hidden; /* Evita scroll horizontal */
+    -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Animações Suaves (usadas pontualmente) */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fadeInSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Links Globais */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color var(--transition-speed) ease, opacity var(--transition-speed) ease;
+}
+a:hover, a:focus {
+    color: var(--secondary-color);
+    text-decoration: none; /* Geralmente se remove o underline e adiciona outras dicas visuais */
+    opacity: 0.85;
+    outline: none;
+}
+
+/* Foco Visível para Acessibilidade (Estilo Mais Sutil) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+input[type="checkbox"]:focus-visible,
+[tabindex]:focus-visible { /* Inclui elementos com tabindex */
+    outline: 2px solid var(--accent-color); /* Laranja para destaque */
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(255, 171, 64, 0.3); /* Sombra de foco opcional */
+    border-radius: 3px;
+}
+/* Remove outline padrão para focar APENAS no focus-visible */
+*:focus {
+    outline: none;
+}
+
+
+/* Imagens Responsivas */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Listas */
+ul, ol {
+    list-style: none;
+    padding-left: 0;
+}
+.fa-ul {
+    margin-left: 1.8em;
+    padding-left: 0;
+}
+.fa-ul li {
+    margin-bottom: 0.8rem;
+}
+
+/* Elementos de Formulário Básicos */
+input, button, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+button {
+    cursor: pointer;
+    border: none; /* Remove borda padrão do botão */
+    background-color: transparent; /* Permite estilização completa */
+}
+
+/* ===== Utilitários ===== */
+.container {
+    width: 100%;
+    max-width: 1240px; /* Container um pouco maior */
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-padding {
+    padding-top: clamp(50px, 8vw, 80px); /* Espaçamento responsivo */
+    padding-bottom: clamp(50px, 8vw, 80px);
+}
+
+.bg-light {
+    background-color: var(--light-bg-color);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: clamp(2rem, 5vw, 3rem); /* Espaçamento responsivo */
+    font-size: clamp(1.8rem, 5vw, 2.5rem); /* Tamanho responsivo */
+    font-weight: 700; /* Mais forte */
+    color: #333;
+    line-height: 1.2;
+}
+.lead { /* Para subtitulos ou parágrafos de introdução */
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: var(--medium-text-color);
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+}
+
+
+.hidden {
+    display: none !important;
+}
+
+/* ===== Cabeçalho (Header) e Navegação ===== */
+.main-header {
+    background-color: var(--white-bg-color);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08); /* Sombra mais sutil */
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color var(--transition-speed) ease, box-shadow 0.3s ease;
+}
+/* Opcional: Header encolhido ao rolar
+.main-header.scrolled {
+    padding: 0.5rem 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+} */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem 0; /* Padding só vertical, container controla horizontal */
+    position: relative;
+}
+.logo a {
+    font-size: 1.9rem;
+    font-weight: 700; /* Mais destaque */
+    color: var(--primary-color);
+    text-decoration: none;
+    letter-spacing: -0.5px; /* Leve ajuste */
+}
+.logo a:hover, .logo a:focus {
+    opacity: 1; /* Não aplicar opacidade do link padrão */
+}
+.logo img {
+    height: 45px; /* Altura do logo - Ajustar */
+    width: auto;
+    vertical-align: middle;
+}
+
+.nav-links {
+    display: flex;
+    gap: clamp(1rem, 3vw, 2rem); /* Espaço responsivo */
+}
+.nav-links a {
+    color: var(--dark-text-color);
+    font-weight: 500;
+    padding: 8px 0; /* Aumentar área de clique */
+    position: relative;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    font-size: 1rem;
+}
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; /* Linha abaixo do padding */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px; /* Linha mais grossa */
+    background-color: var(--primary-color);
+    border-radius: 2px;
+    transition: width var(--transition-speed) ease;
+}
+.nav-links a:hover::after,
+.nav-links a:focus::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+.nav-links a.active {
+    color: var(--primary-color);
+    font-weight: 600; /* Destaque mais forte */
+}
+
+.mobile-menu-button {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.6rem; /* Ajustado */
+    cursor: pointer;
+    color: var(--dark-text-color);
+    padding: 8px; /* Área de clique maior */
+    line-height: 1;
+    z-index: 1001; /* Acima do menu para não ser coberto */
+}
+.mobile-menu-button i { transition: transform 0.3s ease; }
+.mobile-menu-button.open i { transform: rotate(90deg); }
+
+
+.mobile-nav-links {
+  display: none;
+  background-color: #ffffff;
+  position: fixed; /* Fixed para cobrir toda a tela */
+  top: 0;
+  left: -100%; /* Começa fora da tela à esquerda */
+  width: 80%; /* Largura do menu */
+  max-width: 320px; /* Largura máxima */
+  height: 100vh;
+  box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+  z-index: 1000; /* Abaixo do botão de fechar, mas acima do resto */
+  overflow-y: auto; /* Scroll se links não couberem */
+  padding-top: 70px; /* Espaço para o logo/botão fechar */
+  transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Animação suave */
+}
+.mobile-nav-links.active {
+  left: 0; /* Menu entra da esquerda */
+}
+.mobile-nav-links ul { margin: 0; padding: 1.5rem 0; }
+.mobile-nav-links li { text-align: left; }
+.mobile-nav-links a {
+    display: block;
+    padding: 0.9rem 1.8rem; /* Mais padding */
+    color: var(--dark-text-color);
+    text-decoration: none;
+    font-size: 1.1rem; /* Texto maior */
+    font-weight: 500;
+    border-bottom: 1px solid var(--light-bg-color);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.mobile-nav-links li:last-child a { border-bottom: none; }
+.mobile-nav-links a:hover,
+.mobile-nav-links a:focus,
+.mobile-nav-links a.active {
+    background-color: var(--primary-color);
+    color: var(--white-bg-color);
+    font-weight: 600;
+}
+
+/* ===== Botões (CTAs) ===== */
+.button, .cta-button {
+    display: inline-flex; /* Para alinhar ícones e texto */
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Espaço entre ícone e texto */
+    background-color: var(--primary-color);
+    color: var(--light-text-color) !important;
+    padding: 12px 28px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-weight: 600; /* Mais forte */
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color var(--transition-speed) ease,
+                transform var(--transition-speed) ease,
+                box-shadow var(--transition-speed) ease,
+                opacity var(--transition-speed) ease;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1); /* Sombra mais presente */
+}
+.button:hover, .cta-button:hover,
+.button:focus, .cta-button:focus {
+    background-color: var(--secondary-color);
+    color: var(--light-text-color) !important;
+    transform: translateY(-2px) scale(1.01); /* Efeito sutil */
+    box-shadow: var(--box-shadow-medium);
+    text-decoration: none;
+    opacity: 1;
+}
+.button i, .cta-button i { /* Estilo para ícones dentro de botões */
+    line-height: 1; /* Remove espaço extra */
+    font-size: 0.95em; /* Levemente menor que texto */
+}
+
+.cta-button-whatsapp {
+    background-color: #25D366;
+}
+.cta-button-whatsapp:hover, .cta-button-whatsapp:focus {
+    background-color: #1DAE54;
+}
+
+
+/* ===== Seção Hero (Principal) ===== */
+.hero {
+    background-image: linear-gradient(rgba(13, 71, 161, 0.75), rgba(21, 101, 192, 0.6)), url('https://placehold.co/1920x800/334257/FFFFFF?text=Fundo+Pirafrio+Moderno'); /* SUBSTITUIR IMAGEM */
+    background-color: var(--primary-color);
+    background-size: cover;
+    background-position: center 30%; /* Ajustar posição vertical */
+    background-attachment: fixed;
+    color: var(--light-text-color);
+    text-align: center;
+    padding: clamp(100px, 18vh, 160px) 20px; /* Padding responsivo */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 65vh;
+}
+.hero-content {
+    max-width: 780px;
+    opacity: 0;
+    animation: fadeInSlideUp 1s ease-out 0.5s forwards;
+}
+.hero-content h1 {
+    font-size: clamp(2.2rem, 6vw, 3.8rem);
+    margin-bottom: 1rem;
+    color: var(--white-bg-color);
+    font-weight: 700;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    line-height: 1.2;
+}
+.hero-content p {
+    font-size: clamp(1.1rem, 3vw, 1.4rem);
+    margin-bottom: 2.5rem;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.95;
+}
+.hero .cta-button {
+    background-color: var(--accent-color);
+    color: var(--dark-text-color) !important;
+    padding: 14px 38px; /* Botão maior */
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+}
+.hero .cta-button:hover, .hero .cta-button:focus {
+     background-color: #ff9800; /* Laranja mais escuro */
+     color: var(--dark-text-color) !important;
+     transform: translateY(-3px) scale(1.03);
+     box-shadow: 0 7px 18px rgba(0,0,0,0.3);
+}
+
+/* ===== Seção Features (Diferenciais) ===== */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); /* Cards pouco maiores */
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.feature-item {
+    background-color: var(--white-bg-color);
+    padding: 30px 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-light);
+    transition: transform var(--transition-speed) ease,
+                box-shadow var(--transition-speed) ease;
+    text-align: center;
+    border-bottom: 4px solid transparent; /* Para efeito hover */
+    opacity: 0;
+    animation: fadeInSlideUp 0.7s ease-out forwards;
+}
+.feature-item:nth-child(1) { animation-delay: 0.1s; }
+.feature-item:nth-child(2) { animation-delay: 0.25s; }
+.feature-item:nth-child(3) { animation-delay: 0.4s; }
+.feature-item:nth-child(4) { animation-delay: 0.55s; }
+
+.feature-item:hover, .feature-item:focus-within {
+    transform: translateY(-6px);
+    box-shadow: var(--box-shadow-medium);
+    border-bottom-color: var(--primary-color); /* Linha colorida no hover */
+}
+.feature-icon {
+    width: 55px; /* Ícone pouco menor */
+    height: 55px;
+    margin: 0 auto 1.2rem auto;
+    transition: transform var(--transition-speed) ease;
+}
+.feature-item:hover .feature-icon {
+    transform: scale(1.12);
+}
+.feature-item h3 {
+    margin-bottom: 0.8rem;
+    font-size: 1.3rem; /* Pouco menor */
+    color: var(--primary-color);
+    font-weight: 600;
+}
+.feature-item p {
+    color: var(--medium-text-color);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* ===== Seção Produtos (Cards) ===== */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Cards flexíveis */
+    gap: 30px;
+}
+.product-card {
+    background-color: var(--white-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow var(--transition-speed) ease,
+                transform var(--transition-speed) ease;
+}
+.product-card:hover, .product-card:focus-within {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow-medium);
+}
+.product-card img {
+    width: 100%;
+    height: 230px; /* Altura ajustada */
+    object-fit: contain; /* Para não cortar o produto */
+    padding: 15px; /* Espaço em volta da imagem */
+    background-color: #fdfdfd; /* Fundo muito sutil se 'contain' */
+    transition: transform var(--transition-speed) ease;
+    border-bottom: 1px solid var(--border-color);
+}
+.product-card:hover img {
+     transform: scale(1.03);
+}
+.product-card .product-content {
+    padding: 1.2rem 1rem; /* Padding ajustado */
+    text-align: center; /* Textos centralizados no card */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Empurra botão para baixo */
+}
+.product-card h3 {
+    font-size: 1.1rem; /* Nome do produto */
+    margin-bottom: 0.5rem;
+    min-height: 42px; /* Tenta alinhar altura dos títulos */
+    color: var(--dark-text-color);
+    font-weight: 600;
+    line-height: 1.3;
+}
+.product-card .product-brand {
+    font-size: 0.8rem;
+    color: #777;
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.product-card .product-short-desc {
+    font-size: 0.9rem;
+    color: var(--medium-text-color);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    min-height: 50px; /* Tenta alinhar descrições */
+}
+.product-card .product-price {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1.2rem;
+    font-size: 1.4rem;
+}
+.product-card .button {
+    align-self: center;
+    width: auto;
+    padding: 10px 25px;
+}
+
+
+/* ===== Rodapé (Footer) ===== */
+.main-footer {
+    background-color: var(--footer-bg-color);
+    color: var(--light-text-color);
+}
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* Colunas mais largas */
+    gap: 35px;
+    padding-bottom: 2rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.footer-section {
+    margin-bottom: 1rem; /* Para telas pequenas quando empilham */
+}
+.footer-section h3 {
+    font-size: 1.15rem; /* Título seção */
+    margin-bottom: 1.3rem;
+    color: #fff;
+    font-weight: 600;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent-color);
+    display: inline-block;
+}
+.footer-section p, .footer-section ul li {
+    margin-bottom: 0.9rem;
+    font-size: 0.95rem;
+    color: #b0bec5; /* Cinza azulado claro */
+    line-height: 1.8; /* Maior espaçamento */
+}
+.footer-section a {
+    color: var(--light-text-color);
+    text-decoration: none;
+    transition: color var(--transition-speed) ease, text-decoration var(--transition-speed) ease;
+}
+.footer-section a:hover, .footer-section a:focus {
+    color: var(--accent-color);
+    text-decoration: underline;
+    opacity: 1;
+}
+.footer-section i {
+    margin-right: 12px; /* Maior espaço do ícone */
+    color: var(--accent-color);
+    width: 20px;
+    text-align: center;
+}
+.footer-bottom {
+    text-align: center;
+    margin-top: 2.5rem;
+    padding-top: 1.8rem; /* Mais espaço */
+    border-top: 1px solid #37474f; /* Linha divisória mais sutil */
+    font-size: 0.9rem;
+    color: #90a4ae; /* Cinza azulado para copyright */
+}
+.footer-bottom p {
+    margin-bottom: 0.5rem;
+}
+.social-icons {
+    margin-top: 1.2rem;
+}
+.social-icons a {
+    color: var(--light-text-color);
+    font-size: 1.4rem;
+    margin: 0 10px;
+    transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
+    display: inline-block;
+}
+.social-icons a:hover, .social-icons a:focus {
+    color: var(--accent-color);
+    transform: scale(1.15);
+    opacity: 1;
+}
+
+/* ===== Estilos Comuns de Páginas Internas ===== */
+.page-title {
+    background-color: var(--light-bg-color);
+    text-align: center;
+    padding: clamp(40px, 7vw, 60px) 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+.page-title h1 {
+    color: var(--primary-color);
+    margin-bottom: 0.8rem;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 700;
+}
+.page-title p {
+    color: var(--medium-text-color);
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    max-width: 650px; /* Limita largura */
+    margin: 0 auto;
+}
+
+/* ===== Seção Opcional CTA no Index ===== */
+.cta-contact {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+}
+.cta-contact .section-title {
+    color: var(--white-bg-color);
+}
+.cta-contact p {
+    color: var(--light-text-color);
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+.cta-contact .button {
+    background-color: var(--white-bg-color);
+    color: var(--primary-color) !important;
+    margin-right: 10px;
+}
+.cta-contact .button:hover, .cta-contact .button:focus {
+    background-color: var(--light-bg-color);
+    color: var(--primary-color) !important;
+}
+.cta-contact .cta-button-whatsapp {
+    border: 2px solid var(--light-text-color);
+}
+
+/* ====================================================== */
+/* == PÁGINA DE PRODUTOS - Filtros e Layout Específico == */
+/* ====================================================== */
+.products-page .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+/* -- Sidebar de Filtros -- */
+.filters {
+    flex: 0 0 270px; /* Largura aumentada */
+    width: 270px;
+    background-color: var(--white-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    box-shadow: var(--box-shadow-light);
+    position: sticky;
+    top: 100px;
+    align-self: flex-start;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #ccc #f1f1f1; /* Firefox */
+    &::-webkit-scrollbar { width: 8px; }
+    &::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+    &::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+    &::-webkit-scrollbar-thumb:hover { background: #aaa; }
+}
+.filters h2 {
+    text-align: left;
+    margin: -25px -25px 1.8rem -25px; /* Aumentada margem inferior */
+    padding: 18px 25px; /* Aumentado padding */
+    font-size: 1.3rem; /* Pouco menor para caber ícone */
+    font-weight: 600;
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--light-bg-color);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.filter-group {
+    margin-bottom: 2rem; /* Mais espaço */
+    padding-bottom: 1.8rem;
+    border-bottom: 1px dashed #e0e0e0;
+}
+.filter-group:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.filter-group h3 {
+    font-size: 1.05rem; /* Menor */
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--dark-text-color);
+}
+.filter-group label { /* Label que contém o input e o span */
+    display: flex;
+    align-items: flex-start; /* Alinha topo se texto quebrar linha */
+    margin-bottom: 0.8rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var(--medium-text-color);
+    transition: color var(--transition-speed) ease;
+}
+.filter-group label:hover span { /* Destaque no texto ao passar mouse */
+    color: var(--primary-color);
+}
+.filter-group input[type="checkbox"] {
+    margin-right: 10px;
+    flex-shrink: 0;
+    margin-top: 2px; /* Alinhamento fino */
+    width: 17px;
+    height: 17px;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+}
+.filter-group label span { /* O texto do label */
+    line-height: 1.45; /* Melhor para texto */
+    flex-grow: 1;
+}
+
+
+/* -- Container da Lista de Produtos -- */
+.product-list-container {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+/* -- Mensagem de Nenhum Resultado Encontrado -- */
+.no-results {
+    text-align: center;
+    padding: clamp(40px, 8vw, 70px) 30px;
+    border: 2px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--white-bg-color);
+    margin-top: 20px;
+    color: var(--medium-text-color);
+}
+.no-results i {
+    display: block;
+    font-size: 3.5rem; /* Ícone maior */
+    margin-bottom: 1.5rem;
+    color: var(--medium-text-color); /* Cor mais escura */
+}
+.no-results p {
+    margin-bottom: 0.8rem;
+}
+.no-results p:first-of-type {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--dark-text-color);
+    margin-top: 1rem;
+}
+.no-results a {
+    font-weight: 600;
+}
+
+/* ======================================== */
+/* == PÁGINA SOBRE NÓS (ATUALIZADA)     == */
+/* ======================================== */
+.about-hero {
+    background-image: linear-gradient(rgba(13, 71, 161, 0.6), rgba(21, 101, 192, 0.5)), url('https://placehold.co/1920x500/34495E/FFFFFF?text=Equipe+Pirafrio+Reunião+Planejamento'); /* SUBSTITUIR IMAGEM */
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    padding: clamp(80px, 15vh, 120px) 20px;
+    animation: fadeIn 1s ease-out;
+}
+.about-hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    margin-bottom: 0.8rem;
+    color: #fff;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+}
+.about-hero p {
+    font-size: clamp(1.1rem, 3vw, 1.4rem);
+    max-width: 750px;
+    margin: 0 auto 1rem auto;
+    opacity: 0.9;
+    font-weight: 400;
+}
+
+.mission-vision-values { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 30px; margin-top: 2.5rem; }
+.mvv-card { background-color: var(--white-bg-color); padding: 35px; border-radius: var(--border-radius); box-shadow: var(--box-shadow-light); text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; border-top: 5px solid var(--primary-color); animation: fadeInSlideUp 0.6s ease-out forwards; }
+.mvv-card:nth-child(1){ animation-delay: 0.1s;}
+.mvv-card:nth-child(2){ animation-delay: 0.2s;}
+.mvv-card:nth-child(3){ animation-delay: 0.3s;}
+
+.mvv-card:hover { transform: translateY(-10px); box-shadow: var(--box-shadow-medium); }
+.mvv-card i { font-size: 2.8rem; color: var(--primary-color); margin-bottom: 1.2rem; display: block; transition: transform 0.3s ease;}
+.mvv-card:hover i { transform: scale(1.1) rotate(-5deg); }
+.mvv-card h3 { font-size: 1.6rem; margin-bottom: 1rem; color: var(--dark-text-color); font-weight: 600;}
+.mvv-card p { font-size: 1rem; color: var(--medium-text-color); line-height: 1.7; }
+
+.history-section { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; margin-bottom: 2.5rem; }
+.history-section:last-of-type { margin-bottom: 0;}
+.history-image img { border-radius: var(--border-radius); box-shadow: 0 10px 25px rgba(0,0,0,0.1); max-height: 450px; object-fit: cover; width: 100%; animation: fadeIn 1s ease-out; }
+.history-text h3 { font-size: 1.8rem; margin-bottom: 1rem; color: var(--primary-color); }
+.history-text p { margin-bottom: 1rem; color: var(--medium-text-color); font-size: 1.05rem;}
+.history-text { animation: fadeInSlideUp 0.8s ease-out 0.2s forwards; opacity:0;}
+
+.history-timeline { list-style: none; padding-left: 0; position: relative; margin-top: 2rem; }
+.history-timeline::before { content: ''; position: absolute; left: 9px; top: 5px; bottom: 5px; width: 3px; background-color: var(--primary-color); border-radius: 2px;}
+.timeline-event { position: relative; padding-left: 45px; margin-bottom: 30px; animation: fadeInSlideUp 0.6s ease-out; animation-fill-mode: both;} /* delay controlado individualmente */
+.timeline-event::before { content: ''; position: absolute; left: 0px; top: 5px; width: 21px; height: 21px; background-color: var(--white-bg-color); border: 3px solid var(--primary-color); border-radius: 50%; z-index: 1; box-shadow: 0 0 0 4px var(--white-bg-color); }
+.timeline-event strong { display: block; font-weight: 600; color: var(--primary-color); margin-bottom: 6px; font-size: 1.15rem; }
+.timeline-event p { font-size: 0.95rem; margin-bottom: 0; color: var(--medium-text-color);}
+
+.founder-section { background-color: var(--light-bg-color); padding: clamp(40px, 8vw, 70px) 20px; text-align: center;}
+.founder-image { width: 200px; height: 200px; border-radius: 50%; margin: 0 auto 1.5rem auto; object-fit: cover; border: 6px solid var(--white-bg-color); box-shadow: 0 5px 20px rgba(0,0,0,0.15); }
+.founder-section h3 { margin-bottom: 0.5rem; font-size: 1.8rem; }
+.founder-section .title { font-style: italic; color: var(--medium-text-color); margin-bottom: 1.5rem; display: block; font-size: 1.1rem;}
+.founder-section blockquote { max-width: 700px; margin: 1.5rem auto 0 auto; font-style: italic; color: var(--dark-text-color); font-size: 1.15rem; line-height: 1.8; border-left: 4px solid var(--primary-color); padding-left: 20px; text-align: left; position: relative;}
+.founder-section blockquote::before { content: '\201C'; position: absolute; left: 0px; top: -27px; font-size: 3rem; color: var(--primary-color); opacity: 0.3;}
+
+.why-us-revisited { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 30px; }
+.why-us-item { background: var(--white-bg-color); padding: 30px; border-radius: var(--border-radius); box-shadow: var(--box-shadow-light); text-align: left; display: flex; align-items: flex-start; gap: 20px; transition: transform 0.3s ease, box-shadow 0.3s ease; animation: fadeInSlideUp 0.6s ease-out forwards; }
+.why-us-item:nth-child(odd) { animation-delay: 0.1s; }
+.why-us-item:nth-child(even) { animation-delay: 0.2s; }
+.why-us-item:hover { transform: translateY(-5px); box-shadow: var(--box-shadow-medium); }
+.why-us-item i { color: var(--primary-color); font-size: 2rem; margin-top: 5px; flex-shrink: 0; width: 40px; text-align: center;}
+.why-us-item div { flex-grow: 1; }
+.why-us-item h4 { font-size: 1.25rem; margin-bottom: 0.6rem; color: var(--dark-text-color); font-weight: 600;}
+.why-us-item p { font-size: 0.95rem; color: var(--medium-text-color); line-height: 1.6;}
+
+
+/* ======================================== */
+/* == PÁGINA DE CONTATO - Layout e Forms == */
+/* ======================================== */
+.contact-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 50px;
+    align-items: flex-start;
+}
+.contact-form-container h2, .contact-info-container h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    display: flex; align-items: center; gap: 10px;
+}
+.contact-form-container h2 i, .contact-info-container h2 i {
+    font-size: 1.5rem; /* Ícone menor no título */
+}
+
+.contact-form-container p:first-of-type {
+    margin-bottom: 2.5rem; /* Mais espaço */
+    color: var(--medium-text-color);
+    line-height: 1.8;
+}
+
+#contact-form {
+    width: 100%;
+}
+.form-group {
+    margin-bottom: 1.8rem;
+    position: relative;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 10px; /* Mais espaço label/input */
+    font-weight: 600; /* Label mais forte */
+    font-size: 0.95rem;
+    color: var(--dark-text-color);
+}
+.form-group label .fa-asterisk { font-size: 0.6em; color: var(--error-color); vertical-align: super;} /* Para asterisco */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: border-color var(--transition-speed) ease,
+                box-shadow var(--transition-speed) ease;
+    background-color: #fdfdfd; /* Fundo muito sutil */
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.15);
+}
+.form-group .input-error,
+.form-group input:invalid,
+.form-group textarea:invalid {
+    border-color: var(--error-color) !important;
+}
+.error-message {
+    color: var(--error-color);
+    font-size: 0.88rem; /* Menor */
+    margin-top: 6px;
+    display: block;
+    font-weight: 500;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+#contact-form button[type="submit"] {
+    width: auto;
+    padding: 14px 35px;
+    margin-top: 1rem;
+    font-size: 1.05rem; /* Texto do botão um pouco maior */
+    transition: opacity var(--transition-speed) ease, transform var(--transition-speed) ease;
+}
+#contact-form button[type="submit"]:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none; /* Não aplicar efeito de hover no disabled */
+}
+
+
+#form-status {
+    margin-top: 1.8rem;
+    padding: 1.2rem 1.5rem;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    line-height: 1.6;
+    display: none;
+    border: 1px solid transparent;
+    font-size: 0.95rem;
+    animation: fadeIn 0.3s;
+}
+#form-status.success {
+    background-color: #e6f9f0; /* Verde mais suave */
+    color: #0f5132;
+    border-color: #b8e6d1;
+    display: block;
+}
+#form-status.error {
+    background-color: #fdecea; /* Vermelho mais suave */
+    color: #842029;
+    border-color: #f8c7cb;
+    display: block;
+}
+#form-status.info {
+    background-color: #e1f5fe; /* Azul mais suave */
+    color: #01579b;
+    border-color: #b3e5fc;
+    display: block;
+}
+
+
+.contact-info-container {
+    background-color: var(--light-bg-color);
+    padding: 35px;
+    border-radius: var(--border-radius);
+    border-left: 5px solid var(--primary-color); /* Destaque */
+}
+.contact-info-item {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px dashed #ccc;
+}
+.contact-info-item:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+.contact-info-item h3 {
+    font-size: 1.2rem; /* Títulos internos menores */
+    margin-bottom: 1rem;
+    color: var(--dark-text-color);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+}
+.contact-info-item h3 i {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+    width: 25px;
+    text-align: center;
+    flex-shrink: 0;
+}
+.contact-info-item p {
+    margin-bottom: 0.6rem;
+    line-height: 1.7;
+    padding-left: calc(25px + 12px);
+    color: var(--medium-text-color);
+    font-size: 0.95rem;
+}
+.contact-info-item a {
+    color: var(--primary-color);
+    font-weight: 500;
+    word-break: break-word;
+}
+.contact-info-item a:hover, .contact-info-item a:focus {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+.map-container {
+    margin-top: 1.5rem;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    line-height: 0;
+    box-shadow: var(--box-shadow-light);
+}
+.map-container iframe {
+    display: block;
+    width: 100%;
+    border: none;
+}
+
+/* ================================= */
+/* == CALCULADORA DE BTUS ESTIMATIVA == */
+/* ================================= */
+
+.btu-calculator-section {
+    /* background-color: #f7faff; */ /* Opcional: Fundo azul bem claro para destacar a seção */
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.btu-calculator-section .calculator-header {
+    margin-bottom: var(--spacing-xl); /* Espaço abaixo do título/lead da calculadora */
+}
+.btu-calculator-section .calculator-header .section-title {
+    font-size: clamp(1.6rem, 4.5vw, 2.1rem);
+    margin-bottom: var(--spacing-sm);
+    color: var(--primary-color); /* Título da calculadora em cor primária */
+}
+.btu-calculator-section .calculator-header p.lead {
+    font-size: clamp(1rem, 3vw, 1.15rem);
+    margin-bottom: 0;
+    color: var(--medium-text-color);
+}
+.btu-calculator-section .calculator-header p.lead a {
+    font-weight: 600; /* Destaque no link para especialistas */
+    color: var(--secondary-color);
+}
+.btu-calculator-section .calculator-header p.lead a:hover {
+    text-decoration: underline;
+}
+
+/* Layout do Formulário da Calculadora */
+.btu-calculator-form-layout {
+    background-color: var(--white-bg-color);
+    padding: var(--spacing-xl) clamp(var(--spacing-md), 4vw, var(--spacing-xl));
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); /* Sombra mais suave e difusa */
+    max-width: 800px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr; /* Padrão mobile: 1 coluna */
+    gap: var(--spacing-lg);
+}
+
+/* Media Query para o layout do formulário da calculadora */
+@media (min-width: 600px) { /* Ou o breakpoint que achar melhor, ex: 768px */
+    .btu-calculator-form-layout {
+        grid-template-columns: 1fr 1fr; /* Duas colunas em telas maiores */
+        gap: var(--spacing-lg) var(--spacing-xl); /* Espaço de linha e coluna */
+    }
+    /* Se precisar de um campo full-width no layout de 2 colunas */
+    /* .btu-calculator-form-layout .form-group.full-width-calc {
+        grid-column: 1 / -1;
+    } */
+}
+
+#btu-calculator-form .form-group { /* Já definimos margem via gap da grid */
+    margin-bottom: 0;
+}
+
+#btu-calculator-form .form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.9rem; /* Labels um pouco menores */
+    color: var(--dark-text-color);
+}
+#btu-calculator-form .form-group label .required-asterisk {
+    color: var(--error-color);
+    font-weight: normal;
+    margin-left: 3px;
+}
+#btu-calculator-form .form-group .form-text { /* Texto de ajuda/descrição */
+    display: block;
+    font-size: 0.8rem; /* Menor */
+    margin-top: 5px;
+    color: var(--medium-text-color);
+    line-height: 1.4;
+}
+
+#btu-calculator-form input[type="number"],
+#btu-calculator-form select {
+    width: 100%;
+    padding: calc(var(--spacing-sm) + 2px) var(--spacing-md); /* Padding sutilmente maior */
+    border: 1px solid var(--border-color-darker);
+    border-radius: var(--border-radius-sm);
+    font-size: 0.95rem; /* Fonte do input */
+    background-color: #fcfdff; /* Fundo do input levemente azulado */
+    color: var(--dark-text-color);
+    transition: border-color var(--transition-speed-normal) ease, box-shadow var(--transition-speed-normal) ease;
+}
+#btu-calculator-form input[type="number"]::placeholder {
+    color: #999;
+    opacity: 1;
+}
+#btu-calculator-form select {
+    appearance: none; /* Remove seta padrão do select */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23333'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E"); /* Adiciona seta customizada */
+    background-repeat: no-repeat;
+    background-position: right var(--spacing-md) center;
+    background-size: 1em;
+    padding-right: calc(var(--spacing-md) + 1.5em); /* Espaço para a seta */
+}
+/* Remove seta customizada no IE (que não suporta appearance:none bem) */
+_:-ms-input-placeholder, :root #btu-calculator-form select {
+    background-image: none;
+}
+
+#btu-calculator-form input[type="number"]:focus,
+#btu-calculator-form select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb, 13,71,161), 0.2);
+    /* Se --primary-color-rgb não estiver definido em :root, use:
+       box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.2); */
+}
+/* Validação de erro para campos (adicione classe .input-error via JS) */
+#btu-calculator-form .form-group input.input-error,
+#btu-calculator-form .form-group select.input-error {
+    border-color: var(--error-color) !important;
+}
+#btu-calculator-form .form-group .calc-error-message { /* Mensagem de erro abaixo do campo */
+    color: var(--error-color);
+    font-size: 0.8rem;
+    margin-top: 5px;
+    display: block;
+    font-weight: 500;
+}
+
+
+/* Grupo de botões da calculadora */
+.calculator-button-group {
+    grid-column: 1 / -1; /* Ocupa todas as colunas da grid (se layout 2 colunas) */
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-sm);
+}
+.calculator-button-group .button {
+    flex: 1 1 180px; /* Botões flexíveis, base 180px */
+    padding: var(--spacing-sm) var(--spacing-md); /* Padding nos botões */
+    font-size: 0.95rem;
+    font-weight: 500; /* Um pouco mais leve que CTA principal */
+}
+.calculator-button-group .button#calculate-btu-btn {
+    /* Já herda .button global */
+}
+/* Estilo para botão "Limpar" usando a classe .button-outline (se existir globalmente) */
+.calculator-button-group .button.button-outline {
+    /* Estilos globais do .button-outline são aplicados.
+       Se não tiver globalmente: */
+    /* background-color: transparent; */
+    /* border: 2px solid var(--medium-text-color); */
+    /* color: var(--medium-text-color) !important; */
+}
+/* .calculator-button-group .button.button-outline:hover,
+.calculator-button-group .button.button-outline:focus {
+    background-color: var(--medium-text-color);
+    color: var(--white-bg-color) !important;
+    border-color: var(--medium-text-color);
+} */
+
+
+/* Área de Resultado da Calculadora */
+.btu-calculator-result-wrapper {
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-lg) clamp(var(--spacing-md), 4vw, var(--spacing-xl));
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); /* Gradiente suave */
+    color: var(--white-bg-color);
+    border-radius: var(--border-radius); /* Mesmo raio dos inputs/selects */
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(var(--primary-color-rgb, 13,71,161), 0.2); /* Sombra suave e colorida */
+    animation: fadeInSlideUp 0.6s ease-out forwards;
+    /* Removido: border: 4px solid var(--white-bg-color); */
+    /* Removido: outline: 1px solid var(--primary-color); */
+}
+.btu-calculator-result-wrapper h3.result-title {
+    font-size: clamp(1.05rem, 3vw, 1.2rem);
+    margin-bottom: var(--spacing-sm); /* Aumenta espaço para o número de BTUs */
+    color: var(--light-text-color);
+    opacity: 0.9;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+.btu-calculator-result-wrapper h3.result-title i {
+    margin-right: var(--spacing-xs);
+    font-size: 1em;
+    opacity: 0.8;
+}
+
+.btu-result-display {
+    font-size: clamp(2rem, 7vw, 3.2rem);
+    font-weight: 700;
+    color: var(--accent-color); /* Laranja vibrante para o resultado */
+    margin-bottom: var(--spacing-sm); /* Reduz margem para as tags abaixo */
+    line-height: 1.1;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.25);
+}
+
+.btu-result-range {
+    margin-bottom: var(--spacing-lg); /* Espaço antes do aviso */
+    padding-top: var(--spacing-xs); /* Pequeno espaço */
+}
+.btu-result-range p { /* "Opções comuns nesta faixa:" */
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-sm); /* Mais espaço */
+    color: var(--light-text-color);
+    opacity: 0.8;
+}
+.btu-option-tag {
+    display: inline-block;
+    background-color: rgba(255,255,255,0.1);
+    color: var(--white-bg-color);
+    padding: calc(var(--spacing-xs) + 2px) var(--spacing-sm);
+    border-radius: var(--border-radius-pill);
+    font-size: 0.85rem;
+    margin: 5px 3px; /* Menos margem horizontal */
+    border: 1px solid rgba(255,255,255,0.25);
+    font-weight: 500;
+    cursor: default; /* Indica que não é clicável, a menos que seja */
+}
+.btu-option-tag.ideal {
+    background-color: var(--accent-color);
+    color: var(--dark-text-color); /* Contraste com fundo laranja */
+    border-color: transparent;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.btu-result-note {
+    font-size: 0.85rem; /* Nota de aviso menor */
+    line-height: 1.6;
+    color: var(--light-text-color);
+    opacity: 0.8;
+    max-width: 700px; /* Limita largura */
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    background-color: rgba(0,0,0,0.1); /* Fundo sutil para o aviso */
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+}
+.btu-result-note strong {
+    color: var(--white-bg-color);
+    font-weight: 600;
+}
+.btu-result-note a {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+.btu-result-note a:hover {
+    color: var(--white-bg-color);
+}
+
+/* Ajuste específico para layout do form da calculadora em mobile,
+   se já não estiver no @media global de 03-layout.css */
+@media (max-width: 599px) {
+    .calculator-button-group .button {
+        flex-basis: 100%; /* Botões um abaixo do outro */
+    }
+    .btu-calculator-result-wrapper {
+        padding: var(--spacing-md);
+    }
+    .btu-result-display {
+        font-size: clamp(1.8rem, 7vw, 2.8rem);
+    }
+    .btu-result-note {
+        font-size: 0.8rem;
+    }
+}
+
+/* Se não definiu --primary-color-rgb em :root nas variáveis, defina-o ou use rgba fixa.
+:root {
+    --primary-color-rgb: 13, 71, 161; // Valores R, G, B para #0d47a1
+}
+*/
+
+
+/* ================================= */
+/* == CALCULADORA DE BTUS ESTIMATIVA == */
+/* === (VERSÃO SEM LAYOUT RESPONSIVO DE GRID POR ENQUANTO) === */
+/* ================================= */
+
+.btu-calculator-section {
+    /* background-color: #f7faff; */
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.btu-calculator-section .calculator-header {
+    margin-bottom: var(--spacing-xl);
+}
+.btu-calculator-section .calculator-header .section-title {
+    font-size: clamp(1.6rem, 4.5vw, 2.1rem);
+    margin-bottom: var(--spacing-sm);
+    color: var(--primary-color);
+}
+.btu-calculator-section .calculator-header p.lead {
+    font-size: clamp(1rem, 3vw, 1.15rem);
+    margin-bottom: 0;
+    color: var(--medium-text-color);
+}
+.btu-calculator-section .calculator-header p.lead a {
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+.btu-calculator-section .calculator-header p.lead a:hover {
+    text-decoration: underline;
+}
+
+/* Layout do Formulário da Calculadora - AGORA SIMPLESMENTE DISPLAY BLOCK */
+.btu-calculator-form-layout {
+    background-color: var(--white-bg-color);
+    padding: var(--spacing-xl) clamp(var(--spacing-md), 4vw, var(--spacing-xl));
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    max-width: 700px; /* Max width um pouco menor para 1 coluna */
+    margin: 0 auto;
+    /* REMOVIDO: display: grid; */
+    /* REMOVIDO: grid-template-columns: 1fr; */
+    /* REMOVIDO: gap: var(--spacing-lg); */
+}
+/* REMOVIDA A MEDIA QUERY QUE FAZIA DUAS COLUNAS */
+
+#btu-calculator-form .form-group {
+    margin-bottom: var(--spacing-lg); /* Adicionamos margem de volta, já que não tem gap da grid */
+}
+#btu-calculator-form .form-group:last-of-type { /* Último form-group (dos botões) sem margem inferior */
+    margin-bottom: 0;
+}
+
+
+#btu-calculator-form .form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.9rem;
+    color: var(--dark-text-color);
+}
+#btu-calculator-form .form-group label .required-asterisk {
+    color: var(--error-color);
+    font-weight: normal;
+    margin-left: 3px;
+}
+#btu-calculator-form .form-group .form-text {
+    display: block;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    color: var(--medium-text-color);
+    line-height: 1.4;
+}
+
+#btu-calculator-form input[type="number"],
+#btu-calculator-form select {
+    width: 100%;
+    padding: calc(var(--spacing-sm) + 2px) var(--spacing-md);
+    border: 1px solid var(--border-color-darker);
+    border-radius: var(--border-radius-sm);
+    font-size: 0.95rem;
+    background-color: #fcfdff;
+    color: var(--dark-text-color);
+    transition: border-color var(--transition-speed-normal) ease, box-shadow var(--transition-speed-normal) ease;
+}
+#btu-calculator-form input[type="number"]::placeholder {
+    color: #999;
+    opacity: 1;
+}
+#btu-calculator-form select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23333'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--spacing-md) center;
+    background-size: 1em;
+    padding-right: calc(var(--spacing-md) + 1.5em);
+}
+_:-ms-input-placeholder, :root #btu-calculator-form select {
+    background-image: none;
+}
+
+#btu-calculator-form input[type="number"]:focus,
+#btu-calculator-form select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb, 13,71,161), 0.2);
+}
+#btu-calculator-form .form-group input.input-error,
+#btu-calculator-form .form-group select.input-error {
+    border-color: var(--error-color) !important;
+}
+#btu-calculator-form .form-group .calc-error-message {
+    color: var(--error-color);
+    font-size: 0.8rem;
+    margin-top: 5px;
+    display: block;
+    font-weight: 500;
+}
+
+/* Grupo de botões da calculadora */
+.calculator-button-group {
+    /* REMOVIDO: grid-column: 1 / -1; */
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md); /* Margem um pouco maior acima dos botões */
+}
+.calculator-button-group .button {
+    flex: 1 1 180px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+.calculator-button-group .button#calculate-btu-btn {
+    /* Herda .button */
+}
+.calculator-button-group .button.button-outline {
+    /* Herda .button-outline se definido globalmente */
+}
+
+
+/* Área de Resultado da Calculadora */
+.btu-calculator-result-wrapper {
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-lg) clamp(var(--spacing-md), 4vw, var(--spacing-xl));
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: var(--white-bg-color);
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(var(--primary-color-rgb, 13,71,161), 0.2);
+    animation: fadeInSlideUp 0.6s ease-out forwards;
+    opacity: 0; /* Começa invisível para animação */
+    /* Removido o style="display:none" do HTML, JS controlará. Mas se precisar, adicionar display:none aqui: */
+    /* display: none; */
+}
+.btu-calculator-result-wrapper.visible { /* Classe a ser adicionada pelo JS */
+    display: block !important; /* Para sobrescrever o display: none; do style inline se ele ainda existir */
+    opacity: 1;
+}
+
+
+.btu-calculator-result-wrapper h3.result-title {
+    font-size: clamp(1.05rem, 3vw, 1.2rem);
+    margin-bottom: var(--spacing-sm);
+    color: var(--light-text-color);
+    opacity: 0.9;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+.btu-calculator-result-wrapper h3.result-title i {
+    margin-right: var(--spacing-xs);
+    font-size: 1em;
+    opacity: 0.8;
+}
+
+.btu-result-display {
+    font-size: clamp(2rem, 7vw, 3.2rem);
+    font-weight: 700;
+    color: var(--accent-color);
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.1;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.25);
+}
+
+.btu-result-range {
+    margin-bottom: var(--spacing-lg);
+    padding-top: var(--spacing-xs);
+}
+.btu-result-range p {
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--light-text-color);
+    opacity: 0.8;
+}
+.btu-option-tag {
+    display: inline-block;
+    background-color: rgba(255,255,255,0.1);
+    color: var(--white-bg-color);
+    padding: calc(var(--spacing-xs) + 2px) var(--spacing-sm);
+    border-radius: var(--border-radius-pill);
+    font-size: 0.85rem;
+    margin: 5px 3px;
+    border: 1px solid rgba(255,255,255,0.25);
+    font-weight: 500;
+    cursor: default;
+}
+.btu-option-tag.ideal {
+    background-color: var(--accent-color);
+    color: var(--dark-text-color);
+    border-color: transparent;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.btu-result-note {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--light-text-color);
+    opacity: 0.8;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    background-color: rgba(0,0,0,0.1);
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+}
+.btu-result-note strong {
+    color: var(--white-bg-color);
+    font-weight: 600;
+}
+.btu-result-note a {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+.btu-result-note a:hover {
+    color: var(--white-bg-color);
+}
+
+
+/* Se a animação fadeInSlideUp não estiver global, defina-a aqui ou no base.css */
+/*
+@keyframes fadeInSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+*/
+
+/* ===== ESTILOS PARA PÁGINA DE DETALHE DE PRODUTO (do produto-detalhe.html) ====== */
+/* Mova os estilos do <style> da página de produto para cá, prefixando com uma classe como .product-detail-page */
+.product-detail-page .product-detail-section { padding: 40px 0; }
+.product-detail-page .product-detail-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 40px; align-items: flex-start; }
+.product-detail-page .product-image-column img#main-product-image { max-width: 100%; height: auto; border: 1px solid var(--border-color); border-radius: var(--border-radius); margin-bottom: 15px; aspect-ratio: 1/1; object-fit: contain; background-color: #fff; } /* Imagem principal quadrada */
+.product-detail-page .product-image-thumbnails { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;}
+.product-detail-page .product-image-thumbnails img { width: 80px; height: 80px; object-fit: contain; border: 2px solid var(--border-color); border-radius: 4px; cursor: pointer; transition: border-color 0.2s, transform 0.2s; padding: 2px; background-color: #fff; }
+.product-detail-page .product-image-thumbnails img:hover, .product-image-thumbnails img:focus-visible { border-color: var(--secondary-color); transform: scale(1.05); }
+.product-detail-page .product-image-thumbnails img.active-thumb { border-color: var(--primary-color); transform: scale(1.05); box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);}
+.product-detail-page .product-info-column h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: 0.8rem; color: var(--primary-color); line-height: 1.3; font-weight: 700; }
+.product-detail-page .product-brand-model { font-size: 0.95rem; color: var(--medium-text-color); margin-bottom: 1rem; }
+.product-detail-page .product-brand-model strong { color: var(--dark-text-color);}
+.product-detail-page .product-price-details { font-size: clamp(1.6rem, 5vw, 2rem); font-weight: 700; color: var(--primary-color); margin-bottom: 1.5rem; line-height: 1.2; }
+.product-detail-page .product-price-details .price-installment { font-size: clamp(0.9rem, 2.5vw, 1rem); display: block; color: var(--medium-text-color); font-weight: 400; margin-top: 5px; }
+.product-detail-page .product-features-list { list-style: none; padding-left: 0; margin: 1.5rem 0; }
+.product-detail-page .product-features-list li { margin-bottom: 0.8rem; display: flex; align-items: flex-start; font-size: 1rem; }
+.product-detail-page .product-features-list li i { margin-right: 12px; color: var(--success-color); margin-top: 5px; font-size: 1em;}
+.product-detail-page .product-actions { margin-bottom: 2rem; border-top: 1px dashed var(--border-color); border-bottom: 1px dashed var(--border-color); padding: 1.5rem 0;}
+.product-detail-page .cta-buttons-product { display: flex; flex-wrap: wrap; gap: 12px; }
+.product-detail-page .cta-buttons-product .button { flex: 1 1 200px; padding: 12px 15px; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px;}
+.product-detail-page .product-tabs { margin-top: 2.5rem; }
+.product-detail-page .product-tab-nav { border-bottom: 2px solid var(--border-color); margin-bottom: 1.8rem; display: flex; gap: 25px; flex-wrap: wrap;}
+.product-detail-page .product-tab-nav button { background: none; border: none; padding: 12px 0; margin-bottom: -2px; cursor: pointer; font-size: 1.1rem; color: var(--medium-text-color); border-bottom: 3px solid transparent; transition: color 0.2s, border-color 0.2s; font-weight: 500;}
+.product-detail-page .product-tab-nav button:hover, .product-detail-page .product-tab-nav button.active-tab { color: var(--primary-color); border-bottom-color: var(--primary-color); font-weight: 600;}
+.product-detail-page .tab-content { display: none; animation: fadeIn 0.5s; font-size: 1rem; line-height: 1.8; color: var(--dark-text-color);}
+.product-detail-page .tab-content.active { display: block; }
+.product-detail-page .tab-content h2 { display: none; }
+.product-detail-page .description-content p { margin-bottom: 1.2em;}
+.product-detail-page .specs-table { width: 100%; border-collapse: collapse; margin-top: 0; }
+.product-detail-page .specs-table tr:nth-child(even) td { background-color: #f9f9f9;} /* Listras zebradas mais suaves */
+.product-detail-page .specs-table tr:hover td { background-color: #eef5ff;} /* Hover na linha */
+.product-detail-page .specs-table th, .product-detail-page .specs-table td { border: 1px solid #e9ecef; padding: 12px 15px; text-align: left; font-size: 0.95rem; }
+.product-detail-page .specs-table th { background-color: #f1f3f5; font-weight: 600; width: clamp(150px, 30%, 250px); color: var(--dark-text-color); }
+.product-detail-page .specs-table td { color: var(--medium-text-color); }
+.product-detail-page .specs-table caption { caption-side: bottom; text-align: left; font-size: 0.85rem; color: var(--medium-text-color); margin-top: 0.5rem; font-style: italic;}
+
+
+/* ===== AJUSTES DE RESPONSIVIDADE ===== */
+/* Telas Médias (Tablets ~992px) */
+@media (max-width: 992px) {
+    .section-title { font-size: clamp(1.6rem, 4vw, 2.2rem); }
+    .page-title h1 { font-size: clamp(1.7rem, 4.5vw, 2.4rem); }
+    .page-title p { font-size: clamp(1rem, 2.8vw, 1.1rem); }
+
+    /* Empilhamento Geral de Colunas */
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .history-section, .history-section.reverse { grid-template-columns: 1fr; }
+    .history-section .history-image, .history-section.reverse .history-image { order: 0; margin-bottom: 20px;} /* Reseta ordem e adiciona margem */
+
+    .about-image { margin-top: 30px; text-align: center; max-width: 500px; margin-left:auto; margin-right:auto;}
+    .about-image img { max-width: 100%;}
+    .contact-info-container { margin-top: 40px; }
+
+    /* Filtros em Tablet */
+     .filters { flex-basis: 240px; width: 240px; top: 90px; padding: 20px; }
+     .filters h2 { font-size: 1.2rem; padding: 15px 20px;}
+     .filter-group h3 { font-size: 1rem; }
+     .filter-group label { font-size: 0.9rem;}
+
+     /* Página de Produto em Tablet */
+    .product-detail-page .product-detail-grid { grid-template-columns: 1fr; }
+    .product-detail-page .product-image-column { max-width: 500px; margin: 0 auto 30px auto; }
+    .product-detail-page .product-info-column h1 { font-size: 1.8rem;}
+}
+
+/* Telas Pequenas (Celulares ~768px) */
+@media (max-width: 768px) {
+    .section-padding { padding-top: clamp(40px, 6vw, 60px); padding-bottom: clamp(40px, 6vw, 60px); }
+    .section-title { font-size: clamp(1.5rem, 4vw, 2rem); margin-bottom: 1.8rem;}
+    .page-title h1 { font-size: clamp(1.6rem, 5vw, 2.2rem); }
+    .page-title p { font-size: clamp(0.95rem, 3vw, 1.1rem); }
+
+    /* Header Mobile */
+    .navbar { padding: 0.8rem 0; } /* Padding vertical no navbar, container já tem horizontal */
+    .logo a { font-size: 1.6rem; }
+    .nav-links { display: none !important; }
+    .mobile-menu-button { display: flex; align-items: center; justify-content: center;}
+
+    /* Hero Mobile */
+    .hero { padding: clamp(80px, 15vh, 120px) 20px; min-height: 50vh; background-attachment: scroll; }
+    .hero-content h1 { font-size: clamp(1.8rem, 7vw, 2.8rem); }
+    .hero-content p { font-size: clamp(1rem, 4vw, 1.2rem); }
+    .hero .cta-button { font-size: clamp(0.95rem, 3vw, 1.1rem); padding: 12px 28px; }
+
+    /* Empilhamento Geral de Colunas para seções principais */
+    .features-grid, .product-grid, .footer-content, .testimonial-grid, .mission-vision-values, .why-us-revisited {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    .feature-item, .mvv-card, .why-us-item { animation-delay: 0s !important; } /* Remove delay em mobile */
+
+    /* Filtros - Empilha Acima dos Produtos */
+    .products-page .container { flex-direction: column; }
+    .filters {
+        width: 100%;
+        flex-basis: auto;
+        position: static;
+        margin-bottom: 30px;
+        max-height: none;
+        overflow-y: visible;
+        border-right: 1px solid var(--border-color); /* Manter borda lateral ao empilhar */
+        border-left: 1px solid var(--border-color);
+    }
+
+    /* Footer Mobile */
+    .footer-content { text-align: center; gap: 30px; }
+    .footer-section h3 { display: block; text-align: center; margin-bottom: 1rem;}
+    .footer-section p, .footer-section ul li { text-align: center; font-size: 0.95rem; padding-left: 0; }
+    .footer-section i { display: inline-block; margin-right: 8px; } /* Manter ícone ao lado */
+     .social-icons { margin-bottom: 1rem;}
+
+     /* Abas na Página de Produto */
+    .product-detail-page .product-tab-nav { gap: 15px; justify-content: center;}
+    .product-detail-page .product-tab-nav button { font-size: 1rem; }
+    .product-detail-page .cta-buttons-product .button { flex-basis: calc(50% - 6px); font-size: 0.9rem;}
+}
+
+/* Telas bem Pequenas (Ajustes finos) */
+@media (max-width: 480px) {
+    .section-padding { padding: 35px 15px; }
+    .section-title { font-size: clamp(1.4rem, 5vw, 1.8rem); }
+    .page-title h1 { font-size: clamp(1.5rem, 5vw, 2rem); }
+
+    .product-card img { height: 190px; padding: 10px;}
+    .product-card h3 { font-size: 1rem;}
+    .product-card .product-price { font-size: 1.2rem; }
+    .product-card .button { padding: 9px 20px; font-size: 0.9rem;}
+
+    .hero-content h1 { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+    .hero-content p { font-size: 0.95rem; }
+
+    .contact-form-container, .contact-info-container { padding: 25px; }
+    .form-group input, .form-group textarea { padding: 12px 15px;}
+    #contact-form button[type="submit"] { padding: 12px 30px; font-size: 1rem;}
+
+    .footer-section h3 { font-size: 1.1rem;}
+    .footer-section p, .footer-section ul li { font-size: 0.9rem;}
+
+     /* Página de Produto em telas pequenas */
+    .product-detail-page .product-info-column h1 { font-size: 1.5rem; }
+    .product-detail-page .product-price-details { font-size: 1.5rem; }
+    .product-detail-page .cta-buttons-product .button { flex-basis: 100%; font-size: 0.9rem;}
+    .product-detail-page .product-tab-nav button { flex-grow: 1; text-align: center; padding: 10px 5px;}
+     .product-detail-page .specs-table th, .product-detail-page .specs-table td { font-size: 0.88rem; padding: 8px 10px;}
+}

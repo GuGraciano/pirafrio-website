@@ -1,0 +1,263 @@
+/* ============================================== */
+/* == CSS ESPECÍFICO: PÁGINA LISTA DE PRODUTOS == */
+/* ============================================== */
+
+.produtos-page .page-title {
+    padding-bottom: clamp(30px, 6vw, var(--spacing-lg));
+}
+
+/* --- Seção da Calculadora de BTUs --- */
+.produtos-page .btu-calculator-section {
+    background-color: #eef3f8;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-top: clamp(30px, 6vw, var(--spacing-xl)); /* Ajustado */
+    padding-bottom: clamp(30px, 6vw, var(--spacing-xl));
+}
+.produtos-page .btu-calculator-section .calculator-header .section-title {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin-bottom: var(--spacing-xs);
+    color: var(--primary-color);
+}
+.produtos-page .btu-calculator-section .calculator-header p.lead {
+    font-size: clamp(0.95rem, 2.8vw, 1.1rem);
+    margin-bottom: var(--spacing-lg);
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.produtos-page .btu-calculator-form-layout {
+    background-color: var(--white-bg-color);
+    padding: clamp(var(--spacing-lg), 4vw, var(--spacing-xl));
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-md);
+    max-width: 800px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+}
+/* A media query para .btu-calculator-form-layout 2 colunas está no 99-responsive.css */
+
+.produtos-page #btu-calculator-form .form-group { margin-bottom: 0; }
+.produtos-page #btu-calculator-form .form-group label { display: block; font-weight: 500; margin-bottom: var(--spacing-xs); font-size: 0.9rem; color: var(--dark-text-color); }
+.produtos-page #btu-calculator-form .form-group .form-text { display: block; font-size: 0.8rem; margin-top: var(--spacing-xxs); color: var(--muted-text-color); line-height: 1.3; }
+.produtos-page #btu-calculator-form input[type="number"],
+.produtos-page #btu-calculator-form select {
+    width: 100%; padding: var(--spacing-sm) var(--spacing-md); border: 1px solid var(--border-color-input);
+    border-radius: var(--border-radius-sm); font-size: 0.95rem; background-color: var(--white-bg-color);
+    color: var(--dark-text-color); box-shadow: var(--box-shadow-inset);
+}
+.produtos-page #btu-calculator-form input[type="number"]::placeholder { color: var(--muted-text-color); opacity: 0.8; }
+.produtos-page #btu-calculator-form select {
+    appearance: none; -webkit-appearance: none; -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2355575a' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right var(--spacing-sm) center; background-size: 1rem;
+    padding-right: calc(var(--spacing-sm) + 1.5rem);
+}
+.produtos-page #btu-calculator-form input[type="number"]:focus,
+.produtos-page #btu-calculator-form select:focus { border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.25), var(--box-shadow-inset); }
+.produtos-page #btu-calculator-form .form-group input.input-error,
+.produtos-page #btu-calculator-form .form-group select.input-error { border-color: var(--error-color) !important; background-color: var(--error-bg-color); }
+.produtos-page #btu-calculator-form .form-group .calc-error-message { color: var(--error-color); font-size: 0.8rem; margin-top: var(--spacing-xxs); display: block; font-weight: 500; }
+.produtos-page .calculator-button-group { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: var(--spacing-sm); margin-top: var(--spacing-sm); }
+.produtos-page .calculator-button-group .button { flex: 1 1 auto; padding: var(--spacing-sm) var(--spacing-md); font-size: 0.95rem; font-weight: 500; }
+
+.produtos-page .btu-calculator-result-wrapper {
+    margin-top: var(--spacing-xl); padding: var(--spacing-lg) clamp(var(--spacing-md), 4vw, var(--spacing-xl));
+    background: linear-gradient(145deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: var(--white-bg-color); border-radius: var(--border-radius); text-align: center; box-shadow: var(--box-shadow-lg);
+    /* opacity: 0; sera controlado pelo .visible */
+}
+.produtos-page .btu-calculator-result-wrapper.visible { display: block !important; opacity: 1; animation: fadeInSlideUp 0.5s ease-out forwards; }
+.produtos-page .btu-calculator-result-wrapper h3.result-title { font-size: clamp(1rem, 3vw, 1.2rem); margin-bottom: var(--spacing-sm); color: var(--light-text-color); opacity: 0.9; font-weight: 500; text-transform: uppercase; letter-spacing: 0.8px; }
+.produtos-page .btu-calculator-result-wrapper h3.result-title i { margin-right: var(--spacing-xs); font-size: 1em; opacity: 0.8; }
+.produtos-page .btu-result-display { font-size: clamp(2rem, 7vw, 3.2rem); font-weight: 700; color: var(--accent-color); margin-bottom: var(--spacing-xs); line-height: 1.1; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+.produtos-page .btu-result-range { margin-bottom: var(--spacing-md); padding-top: var(--spacing-xs); }
+.produtos-page .btu-result-range p { font-size: 0.9rem; margin-bottom: var(--spacing-sm); color: var(--light-text-color); opacity: 0.85; }
+.produtos-page .btu-option-tag { display: inline-block; background-color: rgba(255,255,255,0.12); color: var(--white-bg-color); padding: var(--spacing-xxs) var(--spacing-sm); border-radius: var(--border-radius-pill); font-size: var(--font-size-sm); margin: 3px; border: 1px solid rgba(255,255,255,0.2); font-weight: 500; }
+.produtos-page .btu-option-tag.ideal { background-color: var(--accent-color); color: var(--dark-text-color); border-color: transparent; font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+.produtos-page .btu-result-note { font-size: var(--font-size-sm); line-height: 1.65; color: rgba(255,255,255,0.8); max-width: 700px; margin-left: auto; margin-right: auto; margin-top: 0; background-color: rgba(0,0,0,0.15); padding: var(--spacing-sm); border-radius: var(--border-radius-sm); }
+.produtos-page .btu-result-note strong { color: var(--white-bg-color); }
+.produtos-page .btu-result-note a { color: var(--accent-color); font-weight: 600; text-decoration: underline;}
+.produtos-page .btu-result-note a:hover { color: var(--white-bg-color); }
+
+
+/* --- Layout Principal (Filtros + Lista) da Página de Produtos --- */
+.produtos-page section.products-content-area {
+    padding-top: var(--spacing-md); /* Reduz padding superior já que calculadora está acima */
+}
+/* O container .produtos-page .container que envolve este layout já centraliza */
+.produtos-page .filters-and-products-layout {
+    display: grid;
+    /* A largura dos filtros é definida na classe .filters diretamente */
+    grid-template-columns: var(--filter-sidebar-width) 1fr;
+    gap: var(--spacing-xl);
+    align-items: flex-start;
+}
+
+/* --- Sidebar de Filtros --- */
+.produtos-page .filters {
+    width: var(--filter-sidebar-width); /* Definido em :root */
+    background-color: var(--white-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    box-shadow: var(--box-shadow-sm);
+
+    position: sticky; /* Efeito sticky para desktop */
+    top: calc(var(--header-height-approx) + var(--spacing-md)); /* Abaixo do header fixo */
+    /* Altura máxima para que o scroll interno funcione e não ultrapasse a altura do footer */
+    max-height: calc(100vh - var(--header-height-approx) - var(--spacing-md) - var(--spacing-lg) - 20px); /* header - top offset - padding do topo da section - um respiro */
+    overflow-y: auto; /* Habilita scroll se o conteúdo do filtro for maior */
+    scrollbar-width: thin;
+    scrollbar-color: #ccc var(--light-bg-color);
+}
+.produtos-page .filters::-webkit-scrollbar { width: 8px; }
+.produtos-page .filters::-webkit-scrollbar-track { background: var(--light-bg-color); border-radius: 10px; }
+.produtos-page .filters::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+.produtos-page .filters::-webkit-scrollbar-thumb:hover { background: #aaa; }
+
+.produtos-page .filters .filters-header-desktop { /* Cabeçalho dos filtros para Desktop */
+    display: block; /* Visível em desktop */
+    margin-bottom: var(--spacing-lg);
+}
+.produtos-page .filters .filters-header-desktop h2 {
+    text-align: left;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--primary-color); /* Linha mais grossa */
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    margin: 0; /* Reset de margem do h2 */
+}
+.produtos-page .filters .filters-header-desktop h2 i {
+    font-size: 1em; /* Ícone proporcional ao texto */
+}
+
+.produtos-page .filters .filters-header-mobile { /* Cabeçalho para painel mobile */
+    display: none; /* Escondido em desktop, visível via media query */
+}
+
+/* Estilos dos grupos de filtro (.filter-group, h3, label, input) permanecem os mesmos que definimos antes */
+.produtos-page .filter-group {
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--light-bg-color); /* Separador mais sutil */
+}
+.produtos-page .filter-group:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.produtos-page .filter-group h3 {
+    font-size: 0.95rem; /* Títulos dos grupos */
+    font-weight: 600;
+    color: var(--dark-text-color);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-xs);
+    border-bottom: 1px dashed var(--border-color-darker); /* Linha sutil */
+}
+.produtos-page .filter-group label {
+    display: flex; align-items: center; margin-bottom: var(--spacing-xs); cursor: pointer;
+    font-size: 0.9rem; color: var(--medium-text-color); padding: 6px var(--spacing-xxs); /* Padding menor */
+    border-radius: var(--border-radius-sm); transition: background-color var(--transition-speed-fast) ease, color var(--transition-speed-fast) ease;
+}
+.produtos-page .filter-group label:hover { background-color: var(--light-bg-color); color: var(--primary-color); }
+.produtos-page .filter-group input[type="checkbox"]:checked + span { color: var(--primary-color); font-weight: 500; }
+.produtos-page .filter-group input[type="checkbox"] {
+    margin-right: var(--spacing-xs); /* Menos espaço */
+    flex-shrink: 0; width: 17px; height: 17px; /* Tamanho customizado do checkbox */
+    appearance: none; -webkit-appearance: none; -moz-appearance: none;
+    background-color: var(--white-bg-color); border: 1.5px solid var(--border-color-input); /* Borda um pouco mais fina */
+    border-radius: 3px; position: relative; outline: none;
+    transition: background-color var(--transition-speed-fast) ease, border-color var(--transition-speed-fast) ease, transform var(--transition-speed-fast) ease;
+    cursor: pointer;
+}
+.produtos-page .filter-group input[type="checkbox"]:hover { border-color: var(--secondary-color); }
+.produtos-page .filter-group input[type="checkbox"]:checked { background-color: var(--primary-color); border-color: var(--primary-color); }
+.produtos-page .filter-group input[type="checkbox"]::after {
+    content: ''; display: block; width: 4px; height: 8px; /* Tamanho do "V" do check */
+    border: solid var(--white-bg-color); border-width: 0 2px 2px 0; /* Desenha o "V" */
+    transform: rotate(45deg) scale(0); position: absolute;
+    left: 5px; top: 2px; /* Posição do "V" dentro do checkbox (ajustar) */
+    transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.05s;
+}
+.produtos-page .filter-group input[type="checkbox"]:checked::after { transform: rotate(45deg) scale(1); }
+.produtos-page .filter-group input[type="checkbox"]:focus-visible { box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.3); } /* Foco customizado */
+.produtos-page .filter-group label span { line-height: 1.4; flex-grow: 1; }
+
+/* Botão Aplicar Filtros DENTRO do painel */
+.produtos-page .filters .filter-apply-btn-action {
+    display: none; /* Escondido em desktop, visível em mobile via media query no 99-responsive.css */
+    width: 100%;
+    margin-top: var(--spacing-lg);
+    background-color: var(--accent-color);
+    color: var(--dark-text-color) !important;
+    border-color: var(--accent-color);
+    font-size: 0.95rem;
+    padding: var(--spacing-sm);
+}
+.produtos-page .filters .filter-apply-btn-action:hover { background-color: #ff9800; border-color: #ff9800; }
+
+
+/* --- Lista de Produtos (.product-list-container) --- */
+.produtos-page .product-list-container {
+    /* flex-grow: 1; min-width: 0; São para flex, aqui é filho da grid */
+    /* Este padding é CRUCIAL para evitar que os filtros sticky sobreponham o footer
+       quando a lista de produtos é mais curta que os filtros.
+       Ajuste o valor para ser MAIOR que a altura do seu footer. */
+    padding-bottom: calc(var(--footer-height-approx, 300px) + var(--spacing-xl)); /* Usa variável de altura do footer */
+}
+/* Defina --footer-height-approx em :root se for usar essa variável */
+/* :root { --footer-height-approx: 300px; } */
+
+/* --- Mensagem "Nenhum Produto Encontrado" --- */
+.produtos-page #no-results-message {
+    display: flex; /* Usado quando o JS mostra a mensagem */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: var(--spacing-xxl) var(--spacing-md);
+    background-color: var(--white-bg-color); /* Destaque do fundo da página */
+    border-radius: var(--border-radius);
+    margin-top: var(--spacing-lg);
+    border: 1px dashed var(--border-color-darker);
+    min-height: 280px;
+}
+.produtos-page #no-results-message i.fa-box-open {
+    font-size: 3rem;
+    color: var(--primary-color);
+    opacity: 0.6;
+    margin-bottom: var(--spacing-md);
+}
+.produtos-page #no-results-message h2 {
+    font-size: 1.3rem;
+    color: var(--dark-text-color);
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+}
+.produtos-page #no-results-message p {
+    font-size: 0.95rem;
+    color: var(--medium-text-color);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-sm);
+}
+.produtos-page #no-results-message p:last-of-type {
+     margin-bottom: var(--spacing-lg);
+}
+.produtos-page #no-results-message .no-results-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-sm);
+}
+.produtos-page #no-results-message .no-results-actions .button {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-size: 0.9rem;
+}
+
+/* Esconder a grid quando a mensagem de "sem resultados" estiver ativa */
+.produtos-page .product-grid.hidden-by-filter {
+    display: none;
+}

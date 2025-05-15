@@ -1,0 +1,403 @@
+/* ===================================== */
+/* == 04 - COMPONENTES REUTILIZÁVEIS  == */
+/* ===================================== */
+
+/* --- Componente: Título de Página Padrão (.page-title) --- */
+/* Usado em Sobre, Produtos, Contato */
+.page-title {
+    background-color: var(--light-bg-color);
+    text-align: center;
+    padding: clamp(40px, 7vw, var(--spacing-xxl)) var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+}
+.page-title h1 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.2;
+}
+.page-title p {
+    color: var(--medium-text-color);
+    font-size: clamp(1rem, 3vw, 1.25rem);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    font-weight: 400;
+}
+
+/* --- Grid para Componentes de Feature/Diferencial --- */
+.features-grid { /* Usado na Home para os diferenciais e na Sobre para Why Us Revisited */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Ajustado o minmax um pouco */
+    gap: var(--spacing-xl);
+    max-width: 1150px; /* Um pouco maior para 4 colunas */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- Componente: Card de Diferencial/Feature (.feature-item) --- */
+.feature-item {
+    background-color: var(--white-bg-color);
+    padding: var(--spacing-lg) var(--spacing-md);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-sm);
+    transition: transform var(--transition-speed-normal) ease,
+                box-shadow var(--transition-speed-normal) ease,
+                border-color var(--transition-speed-normal) ease;
+    text-align: center;
+    border-bottom: 4px solid transparent;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Animação de entrada - pode ser adicionada via JS ou aqui com delay */
+    /* opacity: 0; animation: fadeInSlideUp 0.7s ease-out forwards; */
+}
+.feature-item:hover,
+.feature-item:focus-within {
+    transform: translateY(-8px);
+    box-shadow: var(--box-shadow-md);
+    border-bottom-color: var(--primary-color);
+}
+.feature-icon {
+    width: clamp(50px, 10vw, 60px);
+    height: clamp(50px, 10vw, 60px);
+    margin-bottom: var(--spacing-md);
+    transition: transform var(--transition-speed-normal) ease;
+}
+.feature-item:hover .feature-icon {
+    transform: scale(1.15) rotate(5deg);
+}
+.feature-item h3 {
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+.feature-item p {
+    color: var(--medium-text-color);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    flex-grow: 1;
+}
+
+/* --- Componente: Grid de Produtos (.product-grid) --- */
+/* Usado na Home (Featured) e na Página de Produtos */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-xl); /* Gap entre cards */
+}
+
+/* --- Componente: Card de Produto (.product-card) --- */
+.product-card {
+    background-color: var(--white-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: box-shadow var(--transition-speed-normal) ease,
+                transform var(--transition-speed-normal) ease;
+    /* Animação de entrada pode ser específica por página ou global via JS */
+}
+.product-card:hover,
+.product-card:focus-within {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: var(--box-shadow-md);
+}
+.product-card .product-image-wrapper {
+    background-color: var(--white-bg-color); /* Diferente do card de produto para contraste */
+    border-bottom: 1px solid var(--border-color);
+    overflow: hidden;
+    padding: var(--spacing-xs);
+    height: 220px; /* Altura da imagem */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.product-card img {
+    width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform var(--transition-speed-normal) ease;
+}
+.product-card:hover img {
+     transform: scale(1.05);
+}
+.product-card .product-content {
+    padding: var(--spacing-md); /* Aumentar padding aqui */
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Para empurrar botão para baixo se descrições variam muito */
+}
+.product-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-xxs); /* Menos espaço */
+    min-height: 46px; /* ~2 linhas */
+    color: var(--dark-text-color);
+    font-weight: 600;
+    line-height: 1.35;
+}
+.product-card .product-brand {
+    font-size: var(--font-size-sm);
+    color: var(--muted-text-color);
+    margin-bottom: var(--spacing-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: block;
+}
+.product-card .product-short-desc {
+    font-size: 0.9rem;
+    color: var(--medium-text-color);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.6;
+    /* min-height: 50px; Removido min-height para descrições flexíveis,
+                       o justify-content no .product-content vai alinhar o botão. */
+    /* flex-grow: 1;  Não mais necessário aqui, já que o .product-content faz isso. */
+}
+.product-card .product-price {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-md);
+    font-size: 1.35rem; /* Preço pouco maior */
+}
+.product-card .button {
+    align-self: center;
+    width: auto;
+    min-width: 160px; /* Largura mínima maior */
+    padding: var(--spacing-sm) var(--spacing-md); /* Ajuste de padding */
+    font-size: 0.9rem;
+    margin-top: auto;
+}
+
+
+/* --- Componente: Card de Depoimento (.testimonial-item) --- */
+.testimonial-item {
+    background-color: var(--white-bg-color);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-sm);
+    border-left: 5px solid var(--primary-color);
+    position: relative;
+    transition: box-shadow var(--transition-speed-normal) ease, transform var(--transition-speed-normal) ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    animation: fadeInSlideUp 0.7s ease-out forwards;
+    opacity: 0;
+}
+ .testimonial-item:nth-child(1){ animation-delay: 0.1s;}
+ .testimonial-item:nth-child(2){ animation-delay: 0.2s;}
+ .testimonial-item:nth-child(3){ animation-delay: 0.3s;}
+
+.testimonial-item:hover,
+.testimonial-item:focus-within {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow-md);
+}
+.testimonial-item blockquote {
+    margin: 0 0 var(--spacing-md) 0;
+    padding: 0;
+    border-left: none;
+    position: relative;
+    z-index: 2;
+    flex-grow: 1;
+}
+.testimonial-item blockquote::before {
+    content: "\f10d";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    opacity: 0.15;
+    position: absolute;
+    top: -10px;
+    left: -5px; /* Ajustado */
+    line-height: 1;
+    z-index: 1;
+}
+.testimonial-item blockquote p {
+    margin: 0;
+    padding-top: var(--spacing-xs);
+    font-style: italic;
+    color: var(--medium-text-color);
+    line-height: 1.75;
+    font-size: 1.05rem;
+}
+.testimonial-item cite {
+    font-weight: 600;
+    color: var(--dark-text-color);
+    display: block;
+    margin-top: var(--spacing-md);
+    text-align: right;
+    font-style: normal;
+    font-size: 0.95rem;
+    padding-top: var(--spacing-sm);
+    border-top: 1px dashed var(--border-color);
+    margin-left: auto;
+    width: fit-content;
+    padding-left: var(--spacing-sm);
+}
+
+ /* --- Missão, Visão e Valores Cards (usados em sobre.html) --- */
+ .mvv-card { /* Estilo base do card MVV */
+     background-color: var(--white-bg-color);
+     padding: var(--spacing-xl);
+     border-radius: var(--border-radius-lg);
+     box-shadow: var(--box-shadow-light);
+     text-align: center;
+     transition: transform var(--transition-speed-normal) ease, box-shadow var(--transition-speed-normal) ease;
+     border-top: 5px solid var(--primary-color);
+     height: 100%; /* Para cards terem a mesma altura */
+     display: flex;
+     flex-direction: column;
+ }
+ .mvv-card:hover {
+     transform: translateY(-10px) scale(1.02);
+     box-shadow: var(--box-shadow-md);
+ }
+ .mvv-card i { /* Ícone */
+     font-size: 3rem;
+     color: var(--primary-color);
+     margin-bottom: var(--spacing-md);
+     display: block;
+     transition: transform var(--transition-speed-normal) ease;
+ }
+ .mvv-card:hover i {
+     transform: scale(1.15) rotate(-8deg);
+ }
+ .mvv-card h3 { /* Título (Missão, Visão, Valores) */
+     font-size: 1.7rem;
+     margin-bottom: var(--spacing-md);
+     color: var(--dark-text-color);
+     font-weight: 700;
+ }
+ .mvv-card p, .mvv-card ul { /* Texto ou lista de valores */
+     font-size: 1rem;
+     color: var(--medium-text-color);
+     line-height: 1.75;
+     flex-grow: 1; /* Para ocupar espaço no card */
+ }
+ .mvv-card ul {
+     text-align: left;
+     margin-top: var(--spacing-md);
+     padding-left: 0; /* fa-ul cuida do padding */
+ }
+  /* O estilo .fa-ul já está no 02-base.css ou 00-reset.css */
+ .mvv-card .fa-ul li {
+     list-style-type: none;
+     margin-bottom: var(--spacing-sm);
+ }
+
+ /* --- Por que nos escolher Itens (.why-us-item) --- */
+ .why-us-item {
+     background: var(--white-bg-color);
+     padding: var(--spacing-lg);
+     border-radius: var(--border-radius);
+     box-shadow: var(--box-shadow-sm); /* Mais sutil que o feature-item */
+     text-align: left;
+     display: flex;
+     align-items: flex-start;
+     gap: var(--spacing-md);
+     transition: transform var(--transition-speed-normal) ease, box-shadow var(--transition-speed-normal) ease;
+     height: 100%; /* Para mesma altura em grid */
+ }
+ .why-us-item:hover {
+     transform: translateY(-5px);
+     box-shadow: var(--box-shadow-md);
+ }
+ .why-us-item i {
+     color: var(--primary-color);
+     font-size: 2rem;
+     margin-top: 3px;
+     flex-shrink: 0;
+     width: 45px;
+     text-align: center;
+     line-height: 1; /* Alinha melhor */
+ }
+ .why-us-item div { /* Wrapper do texto */
+     flex-grow: 1;
+ }
+ .why-us-item h4 {
+     font-size: 1.2rem; /* Um pouco menor que h3 do feature-item */
+     margin-bottom: var(--spacing-xs);
+     color: var(--dark-text-color);
+     font-weight: 600;
+ }
+ .why-us-item p {
+     font-size: 0.9rem; /* Texto descritivo menor */
+     color: var(--medium-text-color);
+     line-height: 1.6;
+     margin-bottom: 0;
+ }
+
+ .hero {
+    background-image: linear-gradient(rgba(var(--primary-color-rgb), 0.75), rgba(var(--secondary-color-rgb, 21, 101, 192), 0.65)), url('../images/default-hero-background.jpg'); /* IMAGEM GENÉRICA OU DA HOME */
+    background-color: var(--primary-color);
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    color: var(--light-text-color);
+    text-align: center;
+    padding: clamp(100px, 18vh, 160px) var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh; /* Pode ser um valor um pouco menor para páginas internas */
+    overflow: hidden;
+}
+
+.hero-content {
+    max-width: 800px;
+    padding: var(--spacing-sm);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInSlideUp 1s ease-out 0.5s forwards;
+}
+
+.hero-content h1 {
+    font-size: clamp(2rem, 5.5vw, 3.5rem);
+    margin-bottom: var(--spacing-sm);
+    color: var(--white-bg-color);
+    font-weight: 700;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+    line-height: 1.25;
+}
+
+.hero-content p {
+    font-size: clamp(1.05rem, 2.8vw, 1.3rem);
+    margin-bottom: var(--spacing-lg);
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.95;
+    line-height: 1.6;
+}
+
+.hero .button.cta-button { /* Estilo do botão dentro do Hero */
+    background-color: var(--accent-color);
+    color: var(--dark-text-color) !important;
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: clamp(1rem, 2.5vw, 1.15rem);
+    font-weight: 600;
+    box-shadow: var(--box-shadow-md);
+    border: none;
+}
+.hero .button.cta-button:hover,
+.hero .button.cta-button:focus-visible {
+     background-color: #ff9c1a;
+     color: var(--dark-text-color) !important;
+     transform: translateY(-3px) scale(1.02);
+     box-shadow: var(--box-shadow-lg);
+}
+.hero .button.cta-button i {
+    font-size: 1em;
+}
